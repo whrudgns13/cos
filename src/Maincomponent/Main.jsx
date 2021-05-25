@@ -1,6 +1,7 @@
 import React from "react";
 import Banner from "./Banner";
 import Topbig from "./Topbig";
+import Footer from "./Footer";
 import { Button } from '@material-ui/core';
 import "./css/Main.css"
 import Mainmid from "./Mainmid";
@@ -9,6 +10,7 @@ function Main(){
 
     return(
         <div>
+            <Banner/>
             <Topbig/>
             <div style={{paddingTop:"20px"}}>
                 <h1>Most popular</h1>
@@ -18,6 +20,7 @@ function Main(){
             </div>
             <Mainmid/>
             <Bottombig/>
+            <Footer/>
         </div>
     );
 }
