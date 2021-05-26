@@ -1,21 +1,19 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-//import ProductComponent from "../user/ProductListCategoryComponent";
-//import ProductDetailComponent from "../user/ProductInfoComponet";
-//import Demo from "../user/demo";
 import MainComponent from "../../Maincomponent/Main";
+import ManagerPage from '../../manager_component/ManagerPage';
+import ProductInsert from '../../manager_component/Product/ProductInsert';
 import SignUp from '../../signUp_component/component/SignUp';
+
 const AppRouter = () => {
     return(
         <div style={style}>
             <BrowserRouter>
                     <Switch>
-                        {/* <Route exact path="/" component={UserListComponent} /> */}
                         <Route exact path="/" component={MainComponent} />
-                        {/*<Route path="/product-list" component={ProductComponent} />
-                        <Route path="/product-detail" component={ProductDetailComponent} />
-                        <Route path="/demo" component={Demo} />*/}
                         <Route path="/signUp" component={SignUp} />
+                        <Route path="/manager" component={ManagerPage} />
+                        <Route path="/productInsert" component={ProductInsert} />
                     </Switch>
             </BrowserRouter>
         </div>

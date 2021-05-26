@@ -9,7 +9,6 @@ class ApiService {
         return axios.get(User_API_BASE_URL+'/seach/' + keyword);
     }
 
-    
     getUserEmail(user_email) {
         return axios.get(User_API_BASE_URL+'/signUp/' + user_email);
     }
@@ -19,7 +18,11 @@ class ApiService {
         console.log(user);
         return axios.post(User_API_BASE_URL+'/signUp' ,user);
     }
-   
+
+    //상품등록
+    insertProduct(product){
+        return axios.post(User_API_BASE_URL+'/productInsert' ,product);
+    }
 }
 
 

@@ -1,12 +1,10 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import AxiosApiService from "../../AxiosApiService";
 import DaumPostcode from 'react-daum-postcode';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import '../css/signUp.css';
 import { makeStyles } from '@material-ui/core/styles';
+import Banner from '../../Maincomponent/Banner';
+import Footer from '../../Maincomponent/Footer';
 
 function SignUp(props) {
     const [user_email,setUser_email] = useState('');            //메일
@@ -19,12 +17,13 @@ function SignUp(props) {
     const [postcode,setPostcode] = useState();                  //우편번호
     const [address,setAddress] = useState('');                  //주소
     const [detailAddress,setDetailAddress] = useState('');      //상세주소
-    const [isOpenPost, setIsOpenPost] = useState(false); //api토글
+    const [isOpenPost, setIsOpenPost] = useState(false);    //api토글
     
     
     const [userCheck, setUserCheck] = useState(0);              //백엔드에서 중복이메일인지 값을 받아옴
 
-    const toggleNav = () => {
+    const toggleNav = (e) => {
+        e.preventDefault();
         //사용자가 클릭시 falue면 true로 true면 falue로 토글
         setIsOpenPost(isOpenPost => !isOpenPost);
         console.log(isOpenPost);
@@ -33,12 +32,15 @@ function SignUp(props) {
     function checkEmail(){  //이메일 중복체크
         AxiosApiService.getUserEmail(user_email)
         .then( res => {
-            let userEmail = res.data; //백엔드에서 값을 받아 변수에 저장
+            let userEmail = res.data;//백엔드에서 값을 받아 변수에 저장 
+            console.log('res'+res.data);
             setUserCheck(userEmail);  //받아온 값을 useState에 저장
-            if(userEmail>0){          //이메일이 있으면 0보다 큰 숫자가 들어옴
+            if(userCheck>0){          //이메일이 있으면 0보다 큰 숫자가 들어옴
                 alert('이메일이 이미 존재합니다')
+                console.log(userCheck);
                 }else{
                 alert('사용 가능한 이메일 입니다.')
+                console.log(userCheck);
                 }
         })
         .catch( err =>{
@@ -141,7 +143,7 @@ function SignUp(props) {
     }
 
     //카카오 주소 api
-    function seachAddress(){
+    function seachAddress(e){
         const onCompletePost = (data) => {
             let fullAddress = data.address;
             let zonecode = data.zonecode;
@@ -156,6 +158,7 @@ function SignUp(props) {
             }
             fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
             }
+            
             setPostcode(zonecode);
             setAddress(fullAddress);
             setIsOpenPost(false);
@@ -175,82 +178,90 @@ function SignUp(props) {
   }));
     return (
         <>
-        {isOpenPost ? ( //isOpenPost가 참이면 보여줌
-            <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost } />
-         ) : null}
+        {isOpenPost && //isOpenPost가 참이면 보여줌
+            <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} />}
          </>
     );
     }
 
     return (
+        <>
+        <Banner/>
         <div className="signUp-wapper">
             <div className="signUp-title">
                 <span className="sign">Sign Up</span>
                 </div>
-                <Form>
-                    <Form.Group as={Row} controlId="formHorizontalEmail">
-                    <Form.Label column sm={2}>Email</Form.Label>
-                    <Col sm={5}><Form.Control type="email" placeholder="이메일" 
-                    id="email" name="user_email" value={user_email} onChange={onEmail} /></Col>
-                    <Button onClick={checkEmail}>이메일 체크</Button>
-                    </Form.Group>
+                
+                <form className="signUp-form">
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">Email</label>
+                    <input className="signUp-input" type="email" placeholder="이메일" 
+                    id="email" name="user_email" value={user_email} onChange={onEmail} />
+                    <button onClick={checkEmail}>이메일 체크</button>
+                    </div>
+    
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">Password</label>
+                    <input className="signUp-input" type="password" placeholder="비밀번호" 
+                    name="user_password" value={user_password} onChange={onPassword} />
+                    </div>
 
-                    <Form.Group as={Row} controlId="formBasicPassword">
-                    <Form.Label column sm={2}>Password</Form.Label>
-                    <Col sm={5}><Form.Control type="password" placeholder="비밀번호" 
-                    name="user_password" value={user_password} onChange={onPassword} /></Col>
-                    </Form.Group>
-
-                    <Form.Group as={Row} controlId="formBasicPassword">
-                    <Form.Label column sm={2}>Password</Form.Label>
-                    <Col sm={5}><Form.Control type="password" placeholder="비밀번호 확인" 
-                    value={user_passwordChk} onChange={onPasswordChk} /></Col>
-                     {passwordError && <span style={{color:'red',fontSize:'15px'}}>
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">Password</label>
+                    <input className="signUp-input" type="password" placeholder="비밀번호 확인" 
+                    value={user_passwordChk} onChange={onPasswordChk} />
+                     {passwordError && <span style={{color:'red',fontSize:'12px'}}>
                     비밀번호가 일치하지 않습니다.
                     </span>}
-                    </Form.Group>
+                    </div>
 
-                    <Form.Group as={Row} controlId="formBasicEmail">
-                    <Form.Label column sm={2}>Name</Form.Label>
-                    <Col sm={5}><Form.Control type="email" placeholder="이름"
-                    name="user_name" value={user_name} onChange={onName} /></Col>
-                    </Form.Group>
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">Name</label>
+                    <input className="signUp-input" type="text" placeholder="이름"
+                    name="user_name" value={user_name} onChange={onName} />
+                    </div>
 
-                    <Form.Group as={Row} controlId="formBasicEmail">
-                    <Form.Label column sm={2}>Birthday</Form.Label>
-                    <Col sm={5}><Form.Control type="email" placeholder="생년월일 (예)950804" 
-                    name="user_birthday" value={user_birthday} onChange={onBirthday} /></Col>
-                    </Form.Group>
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">Birthday</label>
+                    <input className="signUp-input" type="text" placeholder="생년월일 (예)950804" 
+                    name="user_birthday" value={user_birthday} onChange={onBirthday} />
+                    </div>
 
-                    <Form.Group as={Row} controlId="formBasicEmail">
-                    <Form.Label column sm={2}>Phone</Form.Label>
-                    <Col sm={5}><Form.Control type="email" placeholder="핸드폰 번호 -없이 입력해주세요" 
-                    name="user_phone" value={user_phone} onChange={onPhone} /></Col>
-                    </Form.Group>
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">Phone</label>
+                    <input className="signUp-input" placeholder="핸드폰 번호 -없이 입력해주세요" 
+                    name="user_phone" value={user_phone} onChange={onPhone} />
+                    </div>
                     
-                    <Form.Group as={Row} controlId="formBasicEmail">
-                    <Form.Label column sm={2}>Postcode</Form.Label>
-                    <Col sm={5}> <Form.Control type="email" id="postcode" placeholder="우편번호" 
-                    name="postcode" value={postcode} onChange={onPostcode}/></Col>
+                    <div className="signUp-inputBox">
+                    <div className="signUp-inputRow">
+                    <label className="signUp-label">Postcode</label>
+                    <button className="signUp-butten" onClick={toggleNav} value="우편번호 찾기">우편번호 찾기</button>
+                    </div>
+                    {isOpenPost && seachAddress()}
+                    <input className="signUp-input" type="text" id="postcode" placeholder="우편번호" 
+                    name="postcode" value={postcode} onChange={onPostcode}/>
+                    </div>
+                    
+                    
 
-                    <Button onClick={toggleNav} value="우편번호 찾기">우편번호 찾기</Button>
-                    {isOpenPost && seachAddress()}<br/>
-                    </Form.Group>
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">Address</label>
+                    <input className="signUp-input" type="text" id="address" placeholder="주소"
+                    name="roadaddress" value={address} onChange={onAddress}/>
+                    </div>
 
-                    <Form.Group as={Row} controlId="formBasicEmail">
-                    <Form.Label column sm={2}>Address</Form.Label>
-                    <Col sm={5}><Form.Control type="email" id="address" placeholder="주소"
-                    name="roadaddress" value={address} onChange={onAddress}/></Col>
-                    </Form.Group>
-
-                    <Form.Group as={Row} controlId="formBasicEmail">
-                    <Form.Label column sm={2}>DetailAddress</Form.Label>
-                    <Col sm={5}><Form.Control type="email" id="detailAddress" placeholder="상세주소"
-                    name="detailaddress" value={detailAddress} onChange={onDetailAddress}/></Col>
-                    </Form.Group>
-                    <Button onClick={saveUser}>Save</Button>
-                    </Form>
-        </div>
+                    <div className="signUp-inputBox">
+                    <label className="signUp-label">DetailAddress</label>
+                    <input className="signUp-input"  type="text" id="detailAddress" placeholder="상세주소"
+                    name="detailaddress" value={detailAddress} onChange={onDetailAddress}/>
+                    </div>
+                    <button className="signUp-butten" onClick={saveUser}>Save</button>
+                    </form>
+                    </div>
+            
+        <Footer/>
+        </>
     )
 }
 

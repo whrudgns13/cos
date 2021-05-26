@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-dom"
 import "./css/Footer.css"
 function Footer(){
     return(
