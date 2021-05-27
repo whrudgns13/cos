@@ -33,12 +33,12 @@
     justify-content: space-between;
     align-items: flex-start;
     text-align: left;
+    padding: 5px;
 }
 .signUp-inputRow{
     display: flex;
-    width: 104%;
+    width: 100%;
     flex-direction: row;
-    justify-content: space-between;
 }
 .signUp-label{
     color: gray;
@@ -47,10 +47,21 @@
 .signUp-input{
     width: 100%;
     border: 0px;
-    background-color: rgb(243, 241, 241);
+    background-color: rgb(245, 245, 241);
     text-align: left;
     padding: 5px;
 }
 .signUp-butten{
-    border: 0px;
+    background-color: rgb(245, 245, 241);
+    border: 0px;    
+    margin-bottom: 8px;
+    margin-left: 10px;
+}
+.signUp-save{
+    border: 0px solid;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
 }

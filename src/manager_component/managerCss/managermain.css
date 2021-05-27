@@ -13,8 +13,7 @@
 .block{
     margin-top: 50px;
     width: 70%;
-    height: 1px;
-    background-color: gray;
+    border: 0.5px solid gray;
 }
 .manager-sidebar{
     width: 20%;
@@ -30,8 +29,5 @@
     padding: 0;
 }
 .division{
-    margin-top: 50px;
-    height: 70%;
-    height: 1px;
-    background-color: gray;
+    border: 0.2px solid gray;
 }

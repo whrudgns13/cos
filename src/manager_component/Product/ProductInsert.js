@@ -12,10 +12,9 @@ function ProductInsert(props) {
     const [product_price,setProduct_price]= useState();
     const [product_stock,setProduct_stock]= useState('');
     const [product_content,setProduct_content]= useState('');
+    const [imgPriView, setImgPriView] = useState("");
     const [product_img,setProduct_img]= useState(null);
     
-
-
     function onTitle(e){
         setProduct_title(e.currentTarget.value);
     }
@@ -38,13 +37,15 @@ function ProductInsert(props) {
         setProduct_content(e.currentTarget.value);
     }
     function onImg(e){
-        setProduct_img(e.target.files[0]);
+        const imageFile = e.target.files[0];
+        const imageUrl = URL.createObjectURL(imageFile);
+        setProduct_img(imageUrl)
     }
-    
 
     function saveProduce(e){
         e.preventDefault();
-        
+        const formData = new FormData();
+        formData.append('file', product_img);
        //사용자가 입력한 값들을 객체에 담음
         let product = {
             product_title : product_title,
@@ -117,12 +118,13 @@ function ProductInsert(props) {
              type="text" placeholder="상품수량" onChange={onStock}></input>
             </div>
             <div className="img_content_box">
-            <div className="img-priview"></div>
+            {/*<div className="img-priview">*/}
+            <img className="priview" src={product_img}/>{/*</div>*/}
             <input type="text" name="product_content" className="product_content" 
             placeholder="상품설명" onChange={onContent}></input>
             </div>
             <div>
-            <input name="product_img" type='file' onChange={onImg}/>
+            <input name="product_img" type='file' accept="image/png" onChange={onImg}/>
             </div>
             <button className="signUp-butten" onClick={saveProduce}>등록</button>
         </div>

@@ -17,10 +17,10 @@ function SignUp(props) {
     const [postcode,setPostcode] = useState();                  //우편번호
     const [address,setAddress] = useState('');                  //주소
     const [detailAddress,setDetailAddress] = useState('');      //상세주소
-    const [isOpenPost, setIsOpenPost] = useState(false);    //api토글
+    const [isOpenPost, setIsOpenPost] = useState(false);        //api토글
     
     
-    const [userCheck, setUserCheck] = useState(0);              //백엔드에서 중복이메일인지 값을 받아옴
+    const [userCheck, setUserCheck] = useState(0); //백엔드에서 중복이메일인지 값을 받아옴
 
     const toggleNav = (e) => {
         e.preventDefault();
@@ -37,10 +37,8 @@ function SignUp(props) {
             setUserCheck(userEmail);  //받아온 값을 useState에 저장
             if(userCheck>0){          //이메일이 있으면 0보다 큰 숫자가 들어옴
                 alert('이메일이 이미 존재합니다')
-                console.log(userCheck);
                 }else{
                 alert('사용 가능한 이메일 입니다.')
-                console.log(userCheck);
                 }
         })
         .catch( err =>{
@@ -194,10 +192,13 @@ function SignUp(props) {
                 
                 <form className="signUp-form">
                     <div className="signUp-inputBox">
+                    <div className="signUp-inputRow">
                     <label className="signUp-label">Email</label>
+                    <button className="signUp-butten" onClick={checkEmail}>이메일 체크</button>
+                    </div>
                     <input className="signUp-input" type="email" placeholder="이메일" 
                     id="email" name="user_email" value={user_email} onChange={onEmail} />
-                    <button onClick={checkEmail}>이메일 체크</button>
+                   
                     </div>
     
                     <div className="signUp-inputBox">
@@ -243,8 +244,6 @@ function SignUp(props) {
                     name="postcode" value={postcode} onChange={onPostcode}/>
                     </div>
                     
-                    
-
                     <div className="signUp-inputBox">
                     <label className="signUp-label">Address</label>
                     <input className="signUp-input" type="text" id="address" placeholder="주소"
@@ -256,7 +255,7 @@ function SignUp(props) {
                     <input className="signUp-input"  type="text" id="detailAddress" placeholder="상세주소"
                     name="detailaddress" value={detailAddress} onChange={onDetailAddress}/>
                     </div>
-                    <button className="signUp-butten" onClick={saveUser}>Save</button>
+                    <button className="signUp-save" onClick={saveUser}>Save</button>
                     </form>
                     </div>
             
