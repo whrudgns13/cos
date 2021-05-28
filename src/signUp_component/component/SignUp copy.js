@@ -67,7 +67,7 @@ function SignUp(props) {
      
         AxiosApiService.insertUser(user)
             .then( res => {
-                props.history.push('/signUp'); //입력성공시 이동
+                props.history.push('/'); //입력성공시 이동
             })
             .catch( err =>{
                 console.log('saveUser() 에러', err);

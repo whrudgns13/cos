@@ -20,8 +20,8 @@ class ApiService {
     }
 
     //상품등록
-    insertProduct(product){
-        return axios.post(User_API_BASE_URL+'/productInsert' ,product);
+    insertProduct(product,formData,config){
+        return axios.post(User_API_BASE_URL+'/manager/productInsert' ,product,formData,config);
     }
 }
 
