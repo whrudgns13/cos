@@ -13,9 +13,9 @@ function ProductInsert(props) {
     const [product_size,setProduct_size]= useState('xs');             //상품사이즈
     const [product_stock,setProduct_stock]= useState();           //상품재고
     const [product_content,setProduct_content]= useState('');       //상품내용
-    const [imgPriView, setImgPriView] = useState(null);               //상품이미지
-    const [product_img,setProduct_img]= useState("");
-    const [exam,setExam] = useState({name:'안녕'});
+    const [imgPriView, setImgPriView] = useState("");               //상품이미지
+    const [product_img,setProduct_img]= useState(null);
+    
     function onTitle(e){
         setProduct_title(e.currentTarget.value);
     }
@@ -40,29 +40,26 @@ function ProductInsert(props) {
     function onContent(e){
         setProduct_content(e.currentTarget.value);
         console.log(product_content);
-        console.log(product_img);
     }
     
     function onImg(e){
-        setProduct_img(e.target.files[0]);
+        setImgPriView(e.target.files[0]);
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
-        setImgPriView(imageUrl); //이미지 주소
+        setProduct_img(imageUrl); //이미지 주소
+        console.log(product_img);
+        console.log(imgPriView);
     }
-    function saveImg(){
+
+    function saveProduce(e){
+        e.preventDefault();
         const formData = new FormData();
-        formData.append('file', product_img);
+        formData.append('file', imgPriView);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         }
-        AxiosApiService.uploadFile(formData,config);
-    }
-
-    function saveProduce(e){
-        e.preventDefault();
-        saveImg();
        //사용자가 입력한 값들을 객체에 담음
         let product = {
             product_title : product_title,
@@ -72,15 +69,13 @@ function ProductInsert(props) {
             product_price: product_price,
             product_stock: product_stock,
             product_content: product_content,
-            product_category: product_category,
-            product_img:product_img.name
+            product_category: product_category
         }
         console.log(product);
-        
         //객체에 담은 값들을 백엔드로 전송 axios로
-        AxiosApiService.insertProduct(product)
+        AxiosApiService.insertProduct(product,formData,config)
             .then( res => {
-                props.history.push('/'); //입력성공시 이동
+                props.history.push('/productInsert'); //입력성공시 이동
             })
             .catch( err =>{
                 console.log('saveProduce() 에러', err);
@@ -96,17 +91,15 @@ function ProductInsert(props) {
       }*/
 
     return (
-        
         <div className="manager-content">
-            <form onSubmit={saveProduce} enctype="multipart/form-data">
             <h1>상품등록</h1>
             <input className="product_title" name="product_title"
              type="text" placeholder="상품제목" onChange={onTitle}></input>
             
              <div className="img-category">
                 <div className="priview_img">
-                <img className="priview" src={imgPriView}/>
-                <input name="file" type='file' onChange={onImg}/>
+                <img className="priview" src={product_img}/>
+                <input name="product_img" type='file' accept="image/png" onChange={onImg}/>
             </div>
 
                 <div className="displaybox">
@@ -164,13 +157,12 @@ function ProductInsert(props) {
             <textarea type="text" name="product_content" className="product_content" 
             placeholder="상품설명" onChange={onContent}></textarea>
             </div>
-            </div>
+        </div>
         </div>
         
-                <button type="submit" className="signUp-butten" >등록</button>
-            </form>
+           
+            <button className="signUp-butten" onClick={saveProduce}>등록</button>
         </div>
-       
     )
 }
 
