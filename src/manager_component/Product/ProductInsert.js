@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import '../managerCss/productinsert.css'
 import AxiosApiService from '../../AxiosApiService';
@@ -42,12 +42,26 @@ function ProductInsert(props) {
         console.log(product_content);
         console.log(product_img);
     }
-    
+    useEffect(()=>{
+        console.log(imgStr);
+    })
     function onImg(e){
         setProduct_img(e.target.files[0]);
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setImgPriView(imageUrl); //이미지 주소
+        console.log("imageFile.name = "+imageFile.name);
+
+        imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
+       
+        const formData = new FormData();
+        formData.append('file', imageFile);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+        AxiosApiService.uploadFile(formData,config);
     }
     /*
     function imgLoop(){
@@ -55,6 +69,8 @@ function ProductInsert(props) {
             setImgStr(product_img[i].name)
         }
     }*/
+
+    /*
     function saveImg(){
         const formData = new FormData();
         formData.append('file', product_img);
@@ -65,9 +81,11 @@ function ProductInsert(props) {
         }
         AxiosApiService.uploadFile(formData,config);
     }
+    */
+
     function saveProduce(e){
         e.preventDefault();
-        saveImg(); //파일저장
+        console.log(imgStr);
        //사용자가 입력한 값들을 객체에 담음
         let product = {
             product_title : product_title,
@@ -78,7 +96,7 @@ function ProductInsert(props) {
             product_stock: product_stock,
             product_content: product_content,
             product_category: product_category,
-            product_img:1
+            product_img:'C:/cos/backend/cos/src/main/resources/imgs/'+(imgStr.slice(0,-1))
         }
         console.log(product);
         //객체에 담은 값들을 백엔드로 전송 axios로

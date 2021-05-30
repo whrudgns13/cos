@@ -23,7 +23,7 @@ class ApiService {
     insertProduct(product){
         return axios.post(User_API_BASE_URL+'/manager/productInsert' ,product);
     }
-
+    
     uploadFile(formData,config){
         console.log("uploadFile 접근");
         return axios.post(User_API_BASE_URL+'/manager/upload',formData,config);
