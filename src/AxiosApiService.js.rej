@@ -1,0 +1,16 @@
+diff a/src/AxiosApiService.js b/src/AxiosApiService.js	(rejected hunks)
+@@ -20,8 +20,12 @@
+     }
+ 
+     //상품등록
+-    insertProduct(product,formData,config){
+-        return axios.post(User_API_BASE_URL+'/manager/productInsert' ,product,formData,config);
++    insertProduct(product){
++        console.log("insertProduct");
++        return axios.post(User_API_BASE_URL+'/manager/productInsert' ,product);
++    }
++    uploadFile(formData,config){
++        return axios.post(User_API_BASE_URL+'/manager/upload' ,formData,config);
+     }
+ }
+ 
