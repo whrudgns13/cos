@@ -12,7 +12,7 @@ function ProductInsert(props) {
     const [product_size,setProduct_size]= useState('xs');             //상품사이즈
     const [product_stock,setProduct_stock]= useState();           //상품재고
     const [product_content,setProduct_content]= useState('');       //상품내용
-    const [imgPriView, setImgPriView] = useState(null); 
+    const [imgPriView, setImgPriView] = useState([]); 
     const [imgStr, setImgStr] = useState("");               
     const [product_img,setProduct_img]= useState();             //상품이미지
     
@@ -39,23 +39,29 @@ function ProductInsert(props) {
     }
     function onContent(e){
         setProduct_content(e.currentTarget.value);
-        console.log(product_content);
         console.log(product_img);
+        console.log(imgPriView);
+        console.log(imgStr);
     }
     useEffect(()=>{
         console.log(imgStr);
     })
     function onImg(e){
-        setProduct_img(e.target.files[0]);
+        setProduct_img(e.target.files);
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setImgPriView(imageUrl); //이미지 주소
-        console.log("imageFile.name = "+imageFile.name);
-
         imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
-       
+        }
+        
+         
+        
+        /*
         const formData = new FormData();
-        formData.append('file', imageFile);
+        for(let i =0; i<imageFile.length; i++){
+            formData.append("file",imageFile[i]);
+            console.log("file",imageFile[i]);
+        }
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -70,10 +76,13 @@ function ProductInsert(props) {
         }
     }*/
 
-    /*
+    
     function saveImg(){
         const formData = new FormData();
-        formData.append('file', product_img);
+        for(let i =0; i<product_img.length;i++){
+            formData.append("file",product_img[i]);
+            console.log("file",product_img[i]);
+        }
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -81,11 +90,11 @@ function ProductInsert(props) {
         }
         AxiosApiService.uploadFile(formData,config);
     }
-    */
+    
 
     function saveProduce(e){
         e.preventDefault();
-        console.log(imgStr);
+        saveImg();
        //사용자가 입력한 값들을 객체에 담음
         let product = {
             product_title : product_title,
@@ -96,16 +105,16 @@ function ProductInsert(props) {
             product_stock: product_stock,
             product_content: product_content,
             product_category: product_category,
-            product_img:'C:/cos/backend/cos/src/main/resources/imgs/'+(imgStr.slice(0,-1))
+            product_img:imgStr.slice(0,-1)
         }
         console.log(product);
         //객체에 담은 값들을 백엔드로 전송 axios로
         AxiosApiService.insertProduct(product)
             .then( res => {
-                props.history.push('/productInsert'); //입력성공시 이동
+                props.history.push('/manager'); //입력성공시 이동
             })
             .catch( err =>{
-                console.log('saveProduce() 에러', err);
+                console.log('saveProducet() 에러', err);
             });
         
         }
@@ -124,11 +133,13 @@ function ProductInsert(props) {
              type="text" placeholder="상품제목" onChange={onTitle}></input>
             
              <div className="img-category">
-                <div className="priview_img">
-                <img className="priview" src={imgPriView}/>
+                <div className="priview_grid">
                 <input multiple="multiple" name="product_img" type='file' onChange={onImg}/>
+                <div className="priview_img" >
+                <img className="priview" src={imgPriView}/>
+                
+                </div>
             </div>
-
                 <div className="displaybox">
                 <div className="select-box">
                     <div className="select-box-div">

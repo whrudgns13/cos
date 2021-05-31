@@ -15,7 +15,7 @@ function ManagerPage() {
             <div className="manager-main">
             <ManagerSidebar/>            
             <div className="division"></div>
-            <ProductInsert/>
+            
             </div>
             </div>
     )

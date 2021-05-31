@@ -7,8 +7,12 @@ function ManagerSidebar() {
                     <Link to={'/productInsert'}>
                     <li>상품등록</li>
                     </Link>
+                    <Link to={'/productList'}>
                     <li>상품목록</li>
+                    </Link>
+                    <Link to={'/userList'}>
                     <li>유저목록</li>
+                    </Link>
                 </ul>
             </div>
     )

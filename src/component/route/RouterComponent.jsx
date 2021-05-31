@@ -3,6 +3,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import MainComponent from "../../Maincomponent/Main";
 import ManagerPage from '../../manager_component/ManagerPage';
 import ProductInsert from '../../manager_component/Product/ProductInsert';
+import ProductList from '../../manager_component/Product/ProductList';
+import UserList from '../../manager_component/Product/UserList';
 import SignUp from '../../signUp_component/component/SignUp';
 
 const AppRouter = () => {
@@ -14,6 +16,8 @@ const AppRouter = () => {
                         <Route path="/signUp" component={SignUp} />
                         <Route path="/manager" component={ManagerPage} />
                         <Route path="/productInsert" component={ProductInsert} />
+                        <Route path="/productList" component={ProductList} />
+                        <Route path="/userList" component={UserList} />
                     </Switch>
             </BrowserRouter>
         </div>
