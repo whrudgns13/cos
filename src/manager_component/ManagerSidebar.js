@@ -1,19 +1,13 @@
 import React from 'react'
-import {Link} from "react-router-dom";
-function ManagerSidebar() {
+function ManagerSidebar({productInsertOpen,productListOpen,userListOpen}) {
     return (
         <div className="manager-sidebar">
                 <ul>
-                    <Link to={'/productInsert'}>
-                    <li>상품등록</li>
-                    </Link>
-                    <Link to={'/productList'}>
-                    <li>상품목록</li>
-                    </Link>
-                    <Link to={'/userList'}>
-                    <li>유저목록</li>
-                    </Link>
+                    <butten onClick={()=>productInsertOpen()}><li>상품등록</li></butten>
+                    <butten onClick={()=>productListOpen()}><li>상품목록</li></butten>
+                    <butten onClick={()=>userListOpen()}><li>유저목록</li></butten>
                 </ul>
+              
             </div>
     )
 }

@@ -1,15 +1,5 @@
 
-.manager-content{
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: gray;
-    margin-top: 30px;
-    justify-content: center;
-    padding: 0 30px;
 
-}
 .displaybox{
     display: flex;
     flex-direction: column;

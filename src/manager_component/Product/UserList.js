@@ -28,7 +28,7 @@ function UserList() {
     }
 
     return (
-        <div>
+        <>
             <h1>고객 목록</h1>
             <Table>
                     <TableHead>
@@ -52,7 +52,7 @@ function UserList() {
                             )}
                     </TableBody>
                 </Table>
-        </div>
+        </>
     )
 }
 

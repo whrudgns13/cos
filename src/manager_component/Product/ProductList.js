@@ -40,7 +40,8 @@ function ProductList(props) {
         objectFit:'cover'
     };
     return (
-        <div>
+        <>
+            <h1>상품목록</h1>
             <Table>
                     <TableHead>
                         <TableRow>
@@ -68,7 +69,7 @@ function ProductList(props) {
                             )}
                     </TableBody>
                 </Table>
-        </div>
+        </>
     )
 }
 
