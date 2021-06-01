@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import Logo from "../Maincomponent/images/logo.jpg";
-import {Link} from "react-router-dom";
-function ManagerHeader(){
 
+function ManagerHeader({dashBoardOpen}){
     return(
         <>
         <div className="manager-navigation">
             <div className="banner">
                 <div className="mid_menu">
-                    <img
+                    <button className="logoBtn" onClick={()=>dashBoardOpen()}>
+                    <img 
                         src={ Logo }
                         style={{height:"50px"}}
                         alt='testA' />
+                        </button>
                     </div>
+                    
             </div>
             </div>
             </>

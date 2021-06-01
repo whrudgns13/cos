@@ -7,10 +7,10 @@ function ProductInsert(props) {
     const [product_title,setProduct_title]= useState('');           //제목
     const [product_gender,setProduct_gender]= useState('남자');         //상품성별
     const [product_category,setProduct_category]= useState('상의');     //상품카테고리
-    const [product_price,setProduct_price]= useState();             //상품가격
+    const [product_price,setProduct_price]= useState(0);             //상품가격
     const [product_color,setProduct_color]= useState('red');           //상품컬러
     const [product_size,setProduct_size]= useState('xs');             //상품사이즈
-    const [product_stock,setProduct_stock]= useState();           //상품재고
+    const [product_stock,setProduct_stock]= useState(0);           //상품재고
     const [product_content,setProduct_content]= useState('');       //상품내용
     const [imgPriView, setImgPriView] = useState([]); 
     const [imgStr, setImgStr] = useState("");               
@@ -54,8 +54,6 @@ function ProductInsert(props) {
         imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
         }
         
-         
-        
         /*
         const formData = new FormData();
         for(let i =0; i<imageFile.length; i++){
@@ -69,13 +67,7 @@ function ProductInsert(props) {
         }
         AxiosApiService.uploadFile(formData,config);
     }
-    /*
-    function imgLoop(){
-        for(let i =0; i<product_img.length;i++){
-            setImgStr(product_img[i].name)
-        }
-    }*/
-
+    */
     
     function saveImg(){
         const formData = new FormData();
@@ -116,7 +108,6 @@ function ProductInsert(props) {
             .catch( err =>{
                 console.log('saveProducet() 에러', err);
             });
-        
         }
     /*const onClick = async () => {
         const formData = new FormData();

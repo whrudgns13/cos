@@ -31,9 +31,29 @@ class ApiService {
         console.log("uploadFile 접근");
         return axios.post(User_API_BASE_URL+'/manager/upload',formData,config);
     }
+    //상품목록
     getProductList(){
         return axios.get(User_API_BASE_URL+"/manager/productList");
     }
+
+    //항목들 개수
+    itemsCnt(){
+        console.log("itemsCnt 접근");
+        return axios.get(User_API_BASE_URL+"/manager");
+    }
+    //상품상세보기
+   
+    getProductDetail(seq){
+        console.log('getProductDetail 접근');
+        return axios.get(User_API_BASE_URL+"/manager/productDetail/"+seq);
+    }
+    /*
+    getProductCnt(){
+        return axios.get(User_API_BASE_URL+"/manager/product");
+    }
+    getUserCnt(){
+        return axios.get(User_API_BASE_URL+"/manager/user");
+    }*/
 }
 
 

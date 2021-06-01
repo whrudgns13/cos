@@ -44,3 +44,7 @@
     height: 500px;
     background-color: gray;
 }
+.logoBtn{
+    border:none;
+    background-color: #FFFFFF;
+}

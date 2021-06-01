@@ -1,0 +1,15 @@
+.dashboard_wapper{
+    width:100%;
+    margin-top:30px;
+    display:flex;
+    flex-direction: block;
+    align-items: center;
+    justify-content: center;
+}
+.Cnt{
+    background-color:'red';
+    width:30%;
+    height: 100px;
+    padding:30px;
+    font-weight:300;
+}
