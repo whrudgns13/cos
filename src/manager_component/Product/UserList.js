@@ -10,7 +10,6 @@ function UserList() {
     //서버에서 받아올 유저 저장소
     const [users,setUsers] = useState({user:[]});
     
-    
     //새로고침시에만 실행
     useEffect(()=>{
         getUserList()

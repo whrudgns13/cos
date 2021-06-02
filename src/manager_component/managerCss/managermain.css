@@ -4,14 +4,16 @@
     height: 100%;
     flex-direction: column;
     align-items: center;
+    color: #444444;
 }
 .manager-content{
     width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: gray;
+    color: #444444;
     margin-top: 30px;
+    margin-bottom: 50px;
     padding: 0 30px;
 
 }
@@ -22,9 +24,9 @@
 }
 .block{
     margin-top: 50px;
-    width: 90%;
+    width: 100%;
     height: 0.5px;
-    background-color: gray;
+    background-color: lightgray;
 }
 .manager-sidebar{
     width: 15%;
@@ -33,7 +35,7 @@
 .manager-sidebar ul li{
     list-style: none;
     padding: 20px;
-    color: gray;
+    color: #444444;
 }
 .manager-sidebar ul{
     margin: 0;
@@ -42,7 +44,7 @@
 .division{
     width: 0.5px;
     height: 500px;
-    background-color: gray;
+    background-color: lightgray;
 }
 .logoBtn{
     border:none;

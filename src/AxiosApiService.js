@@ -27,9 +27,9 @@ class ApiService {
         return axios.post(User_API_BASE_URL+'/manager/productInsert' ,product);
     }
     //이미지 업로드
-    uploadFile(formData,config){
+    uploadFile(FormData){
         console.log("uploadFile 접근");
-        return axios.post(User_API_BASE_URL+'/manager/upload',formData,config);
+        return axios.post(User_API_BASE_URL+'/manager/upload',FormData);
     }
     //상품목록
     getProductList(){
