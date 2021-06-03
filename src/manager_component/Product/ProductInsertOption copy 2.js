@@ -20,19 +20,24 @@ function ProductInsert() {
     const [product_color,setProduct_color]= useState([]);           //상품컬러
     const [product_size,setProduct_size]= useState([]);             //상품사이즈
     const [product_stock,setProduct_stock]= useState([]);           //상품재고
-    const [tableAdd,setTableAdd] =useState([]);
+    const [tableAdd,setTableAdd] =useState([1,]);
     const history = useHistory();
-    
+    const [productOptions, setProductOptions] = useState({productOption:[]});
     function onSize(e){
-        setProduct_size(product_size.concat(e.currentTarget.value));
+        setProduct_size(product_size.concat({productSize:e.currentTarget.value}));
     }
 
     function onColor(e){
-        setProduct_color(product_color.concat(e.currentTarget.value));
+        setProduct_color(product_color.concat({productColor:e.currentTarget.value}));
+        
+        console.log(product_size);
     }
     function onStock(e){
         const stock = parseInt(e.currentTarget.value);
-        setProduct_stock(product_stock.concat(stock));
+        setProduct_stock(product_stock.concat({productStock:stock}));
+        
+        console.log(product_size);
+        console.log(product_color);
     }
     
     useEffect(()=>{
@@ -47,7 +52,14 @@ function ProductInsert() {
             product: JSON.parse(products)
         })
     }
+    function concat(){
+        setProductOptions(
+            productOptions.concat({
+            productOption:product_color,product_size,product_stock
+        })
+        );
 
+    }
     function saveProduceOption(e){
         e.preventDefault();
         //사용자가 입력한 값들을 객체에 담음
@@ -74,18 +86,16 @@ function ProductInsert() {
         }
         
         function tablePlus(){
-            setTableAdd(tableAdd.concat('plus'));
+            setTableAdd(tableAdd.concat('puls'));
         }
-        function tableMinus(){
-            setTableAdd(tableAdd.splice(1));
-        }
+
     return (
         <>
             <h1>상품 옵션</h1>
                 <div className="product_selectOption">
                         <TableContainer component={Paper}>
                             <Table aria-label="caption table">
-                                <caption>행 추가<button onClick={tablePlus}>+</button> 행 삭제<button onClick={tableMinus}>-</button></caption>
+                                <caption>행 추가<button onClick={tablePlus}>+</button></caption>
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>상품제목</TableCell>
@@ -126,7 +136,8 @@ function ProductInsert() {
                         </TableContainer>
                         </div>
                         <button onClick={saveProduceOption}className="signUp-butten" >submit</button>
-                <button onClick={()=>console.log(product,product_size,product_color,product_stock)}className="signUp-butten" >등록</button>
+                        <button onClick={concat}className="signUp-butten" >s</button>
+                <button onClick={()=>console.log(product,product_size,product_color,product_stock,productOptions)}className="signUp-butten" >등록</button>
         </>
     )
 }

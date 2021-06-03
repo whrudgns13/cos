@@ -68,6 +68,7 @@ function ProductList({productDetailOpen}) {
                            )}
                     </TableBody>
                 </Table>
+                <button onClick={()=>console.log(products)}></button>
         </>
     )
 }
