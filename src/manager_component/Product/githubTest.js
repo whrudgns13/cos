@@ -14,77 +14,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Input } from '@material-ui/core';
 
-function ProductInsert({productInsertOptionOpen}) {
-    const [product_title,setProduct_title]= useState('');           //제목
-    const [product_gender,setProduct_gender]= useState('남자');         //상품성별
-    const [product_category,setProduct_category]= useState('상의');     //상품카테고리
-    const [product_price,setProduct_price]= useState(0);             //상품가격
-    const [product_content,setProduct_content]= useState('');       //상품내용
-    const [imgPriView, setImgPriView] = useState([]); 
-    const [imgStr, setImgStr] = useState("");               
-    const [product_img,setProduct_img]= useState();             //상품이미지
-    const [product_material,setProduct_material]= useState();
-    const history = useHistory();
-    const gittest = [1,2,3,4,2,1,2,3,45,5,2,21];
-    function onTitle(e){
-        setProduct_title(e.currentTarget.value);
-    }
-    function selectGender(e){
-        setProduct_gender(e.currentTarget.value);
-    }
-    function selectCategory(e){
-        setProduct_category(e.currentTarget.value);
-    }
-   function onPrice(e){
-        setProduct_price(e.currentTarget.value);
-    }
-    function onContent(e){
-        setProduct_content(e.currentTarget.value);
-    }
-    function onMaterial(e){
-        setProduct_material(e.currentTarget.value);
-     }
-    useEffect(()=>{
-        console.log(imgStr);
-    })
-    function onImg(e){
-        setProduct_img(e.target.files);
-        const imageFile = e.target.files[0];
-        const imageUrl = URL.createObjectURL(imageFile);
-        setImgPriView(imageUrl); //이미지 주소
-        imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
-       
-    }
-    
-    function saveImg(e){
-        const formData = new FormData();
-        for(let i =0; i<product_img.length;i++){
-            formData.append("file",product_img[i]);
-            console.log("file",product_img[i]);
-        }
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }
-        AxiosApiService.uploadFile(formData,config);
-    }
-    
-    function optionPage(e){
-        e.preventDefault();
-        saveImg();
-        let product = {
-            product_title : product_title,
-            product_gender: product_gender,
-            product_category: product_category,
-            product_price: product_price,
-            product_content: product_content,
-            product_img:imgStr.slice(0,-1),
-            product_material:product_material
-        }
-        window.localStorage.setItem('product',JSON.stringify(product));
-        productInsertOptionOpen();
-    }
+function githubTest() {
+    const [gitTest,setGitTest] = useState([1,2,3,4,5,6,7,8,9])
     
     return (
         <>
@@ -143,4 +74,4 @@ function ProductInsert({productInsertOptionOpen}) {
         </>
     )
     }
-export default ProductInsert
+export default githubTest
