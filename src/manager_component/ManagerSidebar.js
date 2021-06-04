@@ -7,7 +7,6 @@ function ManagerSidebar({productInsertOpen,productListOpen,userListOpen}) {
                     <butten onClick={()=>productListOpen()}><li>상품목록</li></butten>
                     <butten onClick={()=>userListOpen()}><li>유저목록</li></butten>
                 </ul>
-              
             </div>
     )
 }

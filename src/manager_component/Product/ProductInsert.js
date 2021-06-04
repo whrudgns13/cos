@@ -3,6 +3,17 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import '../managerCss/productinsert.css'
 import AxiosApiService from '../../AxiosApiService';
 import {useHistory} from "react-router-dom";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { Input } from '@material-ui/core';
+
 function ProductInsert({productInsertOptionOpen}) {
     const [product_title,setProduct_title]= useState('');           //제목
     const [product_gender,setProduct_gender]= useState('남자');         //상품성별
@@ -12,6 +23,7 @@ function ProductInsert({productInsertOptionOpen}) {
     const [imgPriView, setImgPriView] = useState([]); 
     const [imgStr, setImgStr] = useState("");               
     const [product_img,setProduct_img]= useState();             //상품이미지
+    const [product_material,setProduct_material]= useState();
     const history = useHistory();
     
     function onTitle(e){
@@ -29,6 +41,9 @@ function ProductInsert({productInsertOptionOpen}) {
     function onContent(e){
         setProduct_content(e.currentTarget.value);
     }
+    function onMaterial(e){
+        setProduct_material(e.currentTarget.value);
+     }
     useEffect(()=>{
         console.log(imgStr);
     })
@@ -64,7 +79,8 @@ function ProductInsert({productInsertOptionOpen}) {
             product_category: product_category,
             product_price: product_price,
             product_content: product_content,
-            product_img:imgStr.slice(0,-1)
+            product_img:imgStr.slice(0,-1),
+            product_material:product_material
         }
         window.localStorage.setItem('product',JSON.stringify(product));
         productInsertOptionOpen();
@@ -117,6 +133,9 @@ function ProductInsert({productInsertOptionOpen}) {
                         <textarea type="text" name="product_content" className="product_content" 
                         placeholder="상품설명" onChange={onContent}></textarea>
                     </div>
+                    <TableCell align="left">
+                        <Input onChange={onMaterial} style={{textAlign:'left'}}></Input>
+                    </TableCell>
                 </div>
             </div>
             <button type="button" onClick={optionPage}>옵션 설정</button>

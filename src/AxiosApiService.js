@@ -24,7 +24,8 @@ class ApiService {
     }
     //상품등록
     insertProduct(product){
-        return axios.post(User_API_BASE_URL+'/manager/productInsert' ,product);
+        return axios.post(User_API_BASE_URL+'/manager/productInserttest' ,product);
+        //return axios.post(User_API_BASE_URL+'/manager/productInserttest' ,product);
     }
     //이미지 업로드
     uploadFile(FormData){

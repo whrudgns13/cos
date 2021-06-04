@@ -68,9 +68,7 @@ function ManagerPage() {
         setUserList(false);
         setProductList(false);
         setProductInsert(false);
-        console.log(productInsert+productList+userList+dashBoard);
     }
-
 
     return (
         <>  

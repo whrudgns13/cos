@@ -16,24 +16,31 @@ import { Input } from '@material-ui/core';
 import '../managerCss/managerInsertOption.css';
 
 function ProductInsert() {
-    const [product,setProduct] = useState({product:[]}); //받아온 상품
-    const [product_color,setProduct_color]= useState([]);           //상품컬러
-    const [product_size,setProduct_size]= useState([]);             //상품사이즈
-    const [product_stock,setProduct_stock]= useState([]);           //상품재고
+    const [product,setProduct] = useState({product:[]});            //받아온 상품
+    const [product_color,setProduct_color]= useState();           //상품컬러
+    const [product_size,setProduct_size]= useState();             //상품사이즈
+    const [product_stock,setProduct_stock]= useState();           //상품재고
     const [tableAdd,setTableAdd] =useState([]);
+    const [productOptions,setProductOptions]= useState([]); 
     const history = useHistory();
+    const[products,setProducts] = useState({product:[]});
     
     function onSize(e){
-        setProduct_size(product_size.concat(e.currentTarget.value));
+        //setProduct_size(product_size.concat(e.currentTarget.value)); 
+        setProduct_size(e.currentTarget.value);
     }
-
+    
     function onColor(e){
-        setProduct_color(product_color.concat(e.currentTarget.value));
+        //setProduct_color(product_color.concat(e.currentTarget.value));
+        setProduct_color(e.currentTarget.value);
+        console.log(product_stock);
     }
     function onStock(e){
-        const stock = parseInt(e.currentTarget.value);
-        setProduct_stock(product_stock.concat(stock));
-    }
+        //const stock = parseInt(e.currentTarget.value);
+        //setProduct_stock(product_stock.concat(stock));
+        setProduct_stock(e.currentTarget.value);
+     }
+     
     
     useEffect(()=>{
         console.log("getProduct 실행");
@@ -50,21 +57,9 @@ function ProductInsert() {
 
     function saveProduceOption(e){
         e.preventDefault();
-        //사용자가 입력한 값들을 객체에 담음
-        let productOption = {
-            product_title : product.product.product_title,
-            product_gender : product.product.product_gender,
-            product_category : product.product.product_category,
-            product_price : product.product.product_price,
-            product_content : product.product.product_content,
-            product_img: product.product.product_img,
-            product_size : product_size,
-            product_color : product_color,
-            product_stock: product_stock
-        }
         
         //객체에 담은 값들을 백엔드로 전송 axios로
-        AxiosApiService.insertProduct(productOption)
+        AxiosApiService.insertProduct(productOptions)
             .then( res => {
                 //history.push('/manager'); //입력성공시 이동
             })
@@ -73,6 +68,24 @@ function ProductInsert() {
             });
         }
         
+        function onclick(){
+            setProductOptions(productOptions.concat(
+                [{
+                    product_title : product.product.product_title,
+                    product_gender : product.product.product_gender,
+                    product_category : product.product.product_category,
+                    product_price : product.product.product_price,
+                    product_content : product.product.product_content,
+                    product_img: product.product.product_img,
+                    product_material: product.product.product_material,
+                    product_size : product_size,
+                    product_color : product_color,
+                    product_stock: product_stock,
+                }]
+            ))
+        }
+        
+        //테이블 행 추가삭제
         function tablePlus(){
             setTableAdd(tableAdd.concat('plus'));
         }
@@ -116,8 +129,9 @@ function ProductInsert() {
                                                 <option value="YELLOW">YELLOW</option >
                                             </Select>
                                         </TableCell>
+                                        
                                         <TableCell align="left">
-                                            <Input onBlur={onStock} style={{textAlign:'left'}}></Input>
+                                            <Input onChange={onStock} style={{textAlign:'left'}}></Input>
                                         </TableCell>
                                 </TableRow>
                                 )}
@@ -126,7 +140,8 @@ function ProductInsert() {
                         </TableContainer>
                         </div>
                         <button onClick={saveProduceOption}className="signUp-butten" >submit</button>
-                <button onClick={()=>console.log(product,product_size,product_color,product_stock)}className="signUp-butten" >등록</button>
+                        <button onClick={()=>console.log(productOptions)}className="signUp-butten" >출력</button>
+                <button onClick={onclick} className="signUp-butten" >등록</button>
         </>
     )
 }

@@ -29,7 +29,8 @@ function SignUp(props) {
         console.log(isOpenPost);
     }
 
-    function checkEmail(){  //이메일 중복체크
+    function checkEmail(e){  //이메일 중복체크
+        e.preventDefault();
         AxiosApiService.getUserEmail(user_email)
         .then( res => {
             let userEmail = res.data;//백엔드에서 값을 받아 변수에 저장 

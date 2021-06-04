@@ -26,7 +26,7 @@ function ProductList({productDetailOpen}) {
         .catch(err => {
             console.log('getProductList() Error!', err);
         })
-        console.log(products);
+        
     }
 
     function returnProductDetail(seq){
@@ -50,20 +50,19 @@ function ProductList({productDetailOpen}) {
                             <TableCell alingn="right">상품제목</TableCell>
                             <TableCell alingn="right">상품성별</TableCell>
                             <TableCell alingn="right">상품가격</TableCell>
-                            <TableCell alingn="right">상품재고</TableCell>
                             
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {products.product.map(product =>
                             <TableRow style={{height:'20%'}}>
-                                <TableCell component="th" scope="board"> {product.product_seq} </TableCell>
-                                <TableCell alingn="right"><img style={imgStyle} src={imgUrl+product.product_img}></img></TableCell>
+                                <TableCell component="th" scope="board"> {product.product_id} </TableCell>
+                                <TableCell alingn="right"><img style={imgStyle} src={imgUrl+product.imgs[0]}></img></TableCell>
                                 <TableCell alingn="right"><button style={{border:'none', backgroundColor:'#FFFFFF'}} 
                                 onClick={()=>{returnProductDetail(product.product_seq)}}>{product.product_title}</button></TableCell>
                                 <TableCell alingn="right">{product.product_gender}</TableCell>
                                 <TableCell alingn="right">{product.product_price}</TableCell> 
-                                <TableCell alingn="right">{product.product_stock}</TableCell>
+                                
                             </TableRow>
                            )}
                     </TableBody>
