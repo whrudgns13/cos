@@ -18,9 +18,8 @@ function SignUp(props) {
     const [address,setAddress] = useState('');                  //주소
     const [detailAddress,setDetailAddress] = useState('');      //상세주소
     const [isOpenPost, setIsOpenPost] = useState(false);        //api토글
-    
-    
     const [userCheck, setUserCheck] = useState(0); //백엔드에서 중복이메일인지 값을 받아옴
+    const [emailCheck, setEmailCheck] = useState(false); //백엔드에서 중복이메일인지 값을 받아옴
 
     const toggleNav = (e) => {
         e.preventDefault();
@@ -34,13 +33,13 @@ function SignUp(props) {
         AxiosApiService.getUserEmail(user_email)
         .then( res => {
             let userEmail = res.data;//백엔드에서 값을 받아 변수에 저장 
-            console.log('res'+res.data);
             setUserCheck(userEmail);  //받아온 값을 useState에 저장
             if(userCheck>0){          //이메일이 있으면 0보다 큰 숫자가 들어옴
                 alert('이메일이 이미 존재합니다')
                 }else{
                 alert('사용 가능한 이메일 입니다.')
-                }
+                setEmailCheck(true);    
+            }
         })
         .catch( err =>{
             console.log('getUserEmail() 에러', err);
@@ -52,8 +51,8 @@ function SignUp(props) {
         e.preventDefault();
         
         //빈칸확인
-        if(user_email===''){
-            alert('이메일을 확인해주세요');
+        if(user_email===''||emailCheck===false){
+            alert('이메일를 체크해주세요');
             return false;
         }
         if(user_password===''){
@@ -86,7 +85,6 @@ function SignUp(props) {
         }
 
         //이메일 체크 재검사
-        checkEmail()
         //사용자가 입력한 값들을 객체에 담음
         let user = {
             user_email : user_email,
@@ -98,10 +96,11 @@ function SignUp(props) {
             address: address,
             detailaddress: detailAddress
         }
+        console.log(user);
         //객체에 담은 값들을 백엔드로 전송 axios로
         AxiosApiService.insertUser(user)
             .then( res => {
-                props.history.push('/'); //입력성공시 이동
+               props.history.push('/'); //입력성공시 이동
             })
             .catch( err =>{
                 console.log('saveUser() 에러', err);

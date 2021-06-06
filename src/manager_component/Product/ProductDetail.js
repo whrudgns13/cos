@@ -20,6 +20,7 @@ function ProductDetail(props) {
         .catch(err => {
             console.log('getProductDetail() Error!', err);
         })
+        
     }
     
     return (
@@ -72,6 +73,7 @@ function ProductDetail(props) {
                         <div className="detail_box_name" style={{ width:'60%'}}>
                         <label >{product.product.product_content}</label>
                         </div>
+                        <button onClick={()=>console.log(product)}> 출력</button>
                 </div>
             </div>
         </div>

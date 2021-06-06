@@ -6,7 +6,7 @@ import ProductDetail from '../../manager_component/Product/ProductDetail';
 import ProductInsert from '../../manager_component/Product/ProductInsert';
 import ProductInsertOption from '../../manager_component/Product/ProductInsertOption';
 import ProductList from '../../manager_component/Product/ProductList';
-import UserList from '../../manager_component/Product/UserList';
+import UserList from '../../manager_component/User/UserList';
 import SignUp from '../../signUp_component/component/SignUp';
 
 const AppRouter = () => {

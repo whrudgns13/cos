@@ -5,7 +5,7 @@ import ManagerSidebar from './ManagerSidebar';
 import ProductInsert from './Product/ProductInsert';
 import ProductInsertOption from './Product/ProductInsertOption';
 import ProductList from './Product/ProductList';
-import UserList from './Product/UserList';
+import UserList from './User/UserList';
 import ManagerDashboad from './ManagerDashboad';
 import ProductDetail from './Product/ProductDetail';
 import Footer from '../Maincomponent/Footer';

@@ -5,17 +5,38 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import IconButton from "@material-ui/core/IconButton";
 import {useHistory} from "react-router-dom";
 
 function ProductList({productDetailOpen}) {
     const[products,setProducts] = useState({product:[]});
+    const [product_title,setProduct_title] = useState('');
     const imgUrl = "/imgs/";
     const history = useHistory();
+    
 
     useEffect(()=>{
         getProductList()
     },[])
     
+    function onChangeSearch(e){
+        setProduct_title(e.currentTarget.value);
+        console.log(product_title);
+    }
+
+    function search(){
+    AxiosApiService.seachProductList(product_title)
+            .then( res => {
+                setProducts({
+                    product : res.data
+                })
+            })
+            .catch( err =>{
+                console.log('search() 에러', err);
+            });
+    }
+
     function getProductList(){
         AxiosApiService.getProductList()
         .then( res => {
@@ -31,6 +52,7 @@ function ProductList({productDetailOpen}) {
 
     function returnProductDetail(seq){
         window.localStorage.setItem("product_seq",seq);
+        console.log(seq);
         productDetailOpen()
     }
 
@@ -41,8 +63,17 @@ function ProductList({productDetailOpen}) {
     };
     return (
         <>
+        <div style={{width:'100%', display:'flex', alignItems:'center',justifyContent:'space-between'}}>
+            <div></div>
             <h1>상품목록</h1>
-            <Table>
+            <div style={{height:'30px', display:'flex',justifyContent:'flex-end'}}>
+            <input type="text" placeholder="상품이름 검색" onChange={onChangeSearch}></input>
+            <IconButton className="menuButton" onClick={search}>
+                <SearchOutlinedIcon/>
+            </IconButton>
+            </div>
+            </div>
+                <Table style={{marginTop:'30px'}}>
                     <TableHead>
                         <TableRow>
                             <TableCell alingn="right">상품번호</TableCell>
@@ -59,7 +90,7 @@ function ProductList({productDetailOpen}) {
                                 <TableCell component="th" scope="board"> {product.product_id} </TableCell>
                                 <TableCell alingn="right"><img style={imgStyle} src={imgUrl+product.imgs[0]}></img></TableCell>
                                 <TableCell alingn="right"><button style={{border:'none', backgroundColor:'#FFFFFF'}} 
-                                onClick={()=>{returnProductDetail(product.product_seq)}}>{product.product_title}</button></TableCell>
+                                onClick={()=>{returnProductDetail(product.product_id)}}>{product.product_title}</button></TableCell>
                                 <TableCell alingn="right">{product.product_gender}</TableCell>
                                 <TableCell alingn="right">{product.product_price}</TableCell> 
                                 
