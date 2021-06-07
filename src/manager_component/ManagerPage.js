@@ -8,6 +8,7 @@ import ProductList from './Product/ProductList';
 import UserList from './User/UserList';
 import ManagerDashboad from './ManagerDashboad';
 import ProductDetail from './Product/ProductDetail';
+import ProductUpdate from './Product/ProductUpdate';
 import Footer from '../Maincomponent/Footer';
 
 function ManagerPage() {
@@ -18,7 +19,8 @@ function ManagerPage() {
     const [dashBoard, setDashBoard] = useState(true);
     const [productDetail, setProductDetail] = useState(false);
     const [productInsertOption, setProductInsertOption] = useState(false);
-   
+    const [productUpdate, setProductUpdate] = useState(false);
+
     const productInsertOpen = ()=>{
         setProductInsert(true);
         setProductList(false);
@@ -26,6 +28,7 @@ function ManagerPage() {
         setDashBoard(false);
         setProductDetail(false);
         setProductInsertOption(false);
+        setProductUpdate(false);
     }
 
     const productListOpen= ()=>{
@@ -35,6 +38,7 @@ function ManagerPage() {
         setDashBoard(false);
         setProductDetail(false);
         setProductInsertOption(false);
+        setProductUpdate(false);
     }
 
     const userListOpen= ()=>{
@@ -44,6 +48,7 @@ function ManagerPage() {
         setDashBoard(false);
         setProductDetail(false);
         setProductInsertOption(false);
+        setProductUpdate(false);
     }
     const dashBoardOpen= ()=>{
         setDashBoard(true);
@@ -52,6 +57,7 @@ function ManagerPage() {
         setProductInsert(false);
         setProductDetail(false);
         setProductInsertOption(false);
+        setProductUpdate(false);
     }
     const productDetailOpen=()=>{
         setProductDetail(true);
@@ -60,9 +66,20 @@ function ManagerPage() {
         setProductList(false);
         setProductInsert(false);
         setProductInsertOption(false);
+        setProductUpdate(false);
     }
     const productInsertOptionOpen=()=>{
         setProductInsertOption(true);
+        setProductDetail(false);
+        setDashBoard(false);
+        setUserList(false);
+        setProductList(false);
+        setProductInsert(false);
+        setProductUpdate(false);
+    }
+    const productUpdateOptionOpen=()=>{
+        setProductUpdate(true);
+        setProductInsertOption(false);
         setProductDetail(false);
         setDashBoard(false);
         setUserList(false);
@@ -86,10 +103,11 @@ function ManagerPage() {
                     <div className="manager-content">
                         {dashBoard && <ManagerDashboad/>}
                         {productInsert && <ProductInsert productInsertOptionOpen={productInsertOptionOpen}/>}
-                        {productInsertOption && <ProductInsertOption/>}
+                        {productInsertOption && <ProductInsertOption />}
                         {productList && <ProductList productDetailOpen={productDetailOpen}/>}
-                        {productDetail&&<ProductDetail/>}
+                        {productDetail&&<ProductDetail productUpdateOptionOpen={productUpdateOptionOpen}/>}
                         {userList && <UserList/>}
+                        {productUpdate && <ProductUpdate/>}
                         
                     </div>
                 </div>

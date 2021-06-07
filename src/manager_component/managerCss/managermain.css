@@ -50,3 +50,4 @@
     border:none;
     background-color: #FFFFFF;
 }
+input:focus, textarea:focus{     outline: none; }
