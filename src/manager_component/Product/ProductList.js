@@ -10,7 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import {useHistory} from "react-router-dom";
 
 function ProductList({productDetailOpen}) {
-    const[products,setProducts] = useState({product:[]});
+    const[products,setProducts] = useState({product:[0]});
     const [product_title,setProduct_title] = useState('');
     const imgUrl = "/imgs/";
     const history = useHistory();
@@ -23,6 +23,11 @@ function ProductList({productDetailOpen}) {
     function onChangeSearch(e){
         setProduct_title(e.currentTarget.value);
         console.log(product_title);
+    }
+    const onKeyPress = (e)=>{
+        if(e.key==="Enter"){
+            search();
+        }
     }
 
     function search(){
@@ -67,7 +72,7 @@ function ProductList({productDetailOpen}) {
             <div></div>
             <h1>상품목록</h1>
             <div style={{height:'30px', display:'flex',justifyContent:'flex-end'}}>
-            <input type="text" placeholder="상품이름 검색" onChange={onChangeSearch}></input>
+            <input type="text" placeholder="상품이름 검색" onChange={onChangeSearch} onKeyPress={onKeyPress}/>
             <IconButton className="menuButton" onClick={search}>
                 <SearchOutlinedIcon/>
             </IconButton>
@@ -88,17 +93,15 @@ function ProductList({productDetailOpen}) {
                         {products.product.map(product =>
                             <TableRow style={{height:'20%'}}>
                                 <TableCell component="th" scope="board"> {product.product_id} </TableCell>
-                                <TableCell alingn="right"><img style={imgStyle} src={imgUrl+product.imgs[0]}></img></TableCell>
+                                <TableCell alingn="right"><img style={imgStyle} src={imgUrl+product.product_img}></img></TableCell>
                                 <TableCell alingn="right"><button style={{border:'none', backgroundColor:'#FFFFFF'}} 
                                 onClick={()=>{returnProductDetail(product.product_id)}}>{product.product_title}</button></TableCell>
                                 <TableCell alingn="right">{product.product_gender}</TableCell>
                                 <TableCell alingn="right">{product.product_price}</TableCell> 
-                                
                             </TableRow>
                            )}
                     </TableBody>
                 </Table>
-                <button onClick={()=>console.log(products)}></button>
         </>
     )
 }

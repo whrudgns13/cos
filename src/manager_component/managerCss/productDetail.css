@@ -35,9 +35,32 @@
     margin-right: 10px;
     border: 1px solid lightgray;
 }
-.detail_box_row{
+.detail_box_gender_category{
     width: 100%;
+    padding: 5px 0 0;
     display: flex;
+    margin-top: 5px;
+    justify-content: flex-start;
+}
+.detail_box_low{
+    width: 38%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.detail_box_low_label{
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    font-size: 12px;
+    width: 80%;
+    height: 50%;
+    margin-right: 10px;
+    border: 1px solid lightgray;
+}
+
+.product_update_label{
+    font-weight: 600;
 }
 .detail_button{
     display: flex;
@@ -46,8 +69,12 @@
 }
 .detail_button button{
     width: 40%;
-    font-size: 10px;
-    background-color: rgb(243, 241, 241);
+    height: 100%;
+    font-size: 12px;
+    background-color: #444444;
+    color: white;
     margin-right: 10px;
+    border: 1px solid #444444;
 }
+
 

@@ -28,6 +28,7 @@ const [products,setProducts] = useState({product:[0]});
     }
     return (
         <>
+        
         <h1>상세 보기</h1>
         <div className="detail_wapper">
             <img className="detail_img" src={imgUrl+products.product[0].product_img}></img>
@@ -43,7 +44,7 @@ const [products,setProducts] = useState({product:[0]});
                     <div style={{display:'flex', flexDirection:'row',width:'100%'}}>
                         {products.product.map(product =>
                             <div className="detail_box_name">
-                                <div style={{backgroundColor:"green", width:'20px',height:'20px'}}></div>
+                                <div style={{backgroundColor:product.product_color, width:'20px',height:'20px'}}></div>
                                 <label style={{marginLeft:"10px"}}>{product.product_color}</label>
                             </div>
                         )}
@@ -68,13 +69,29 @@ const [products,setProducts] = useState({product:[0]});
                             </div>
                         )}
                         </div>
+                    </div>
+                    <div className="detail_box_gender_category">
+                        <div className="detail_box_low">
+                        <p style={{marginBottom:'10px'}}>상품 성별</p>
+                            <div className="detail_box_low_label">
+                               <label >{products.product[0].product_gender}</label>
+                            </div>
+                        </div>
+                        <div className="detail_box_low">
+                        <p style={{marginBottom:'10px'}}>상품 종류</p>
+                            <div className="detail_box_low_label">
+                               <label >{products.product[0].product_category}</label>
+                        </div>
+                        </div>
+                        
+                    </div>
                     <div className="detail_box">
                         <p style={{marginBottom:'10px'}}>상품 판매량</p>
                         <div className="detail_box_name" style={{ width:'60%'}}>
                         <label >{products.product[0].product_saled}</label>
                         </div>
                     </div>
-                </div>
+                
                 <div className="detail_box">
                         <p style={{marginBottom:'10px'}}>상품 등록일</p>
                         <div className="detail_box_name" style={{ width:'60%'}}>
@@ -88,8 +105,8 @@ const [products,setProducts] = useState({product:[0]});
                         </div>
                 </div>
                 <div className="detail_button">
-                    <Button variant="contained" onClick={()=>productUpdateOptionOpen()}>상품 수정하기</Button>
-                     <Button variant="contained">상품 삭제하기</Button>
+                    <button onClick={()=>productUpdateOptionOpen()}>상품 수정하기</button>
+                     <button >상품 삭제하기</button>
                 </div>
             </div>
         </div>

@@ -58,11 +58,14 @@ class ApiService {
     productUpdate(products){
         console.log("productUpdate 접근");  
         console.log(products);
-        return axios.post(User_API_BASE_URL+"/manager/productUpdate", products);
+        return axios.put(User_API_BASE_URL+"/manager/productUpdate", products);
     }
     //상품리스트
     getProductList(){
         return axios.get(User_API_BASE_URL+"/manager/productList");
+    }
+    productDelete(productID){
+        return axios.delete(User_API_BASE_URL+"/manager/productDelect/"+productID);
     }
 }
 

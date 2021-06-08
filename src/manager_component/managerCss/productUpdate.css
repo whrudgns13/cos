@@ -73,3 +73,17 @@
     background-color: rgb(243, 241, 241);
     border: 1px solid #cccccc;
 }
+.update_button{
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+.update_button button{
+    width: 40%;
+    height: 100%;
+    font-size: 12px;
+    background-color: #444444;
+    color: white;
+    margin-right: 10px;
+    border: 1px solid #444444;
+}

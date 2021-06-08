@@ -78,6 +78,7 @@ function ProductUpdate(props) {
     function getProductDetail(){
         AxiosApiService.getProductDetail(window.localStorage.getItem("product_seq"))
         .then( res => {
+            let product =
             setProducts({
                 product : res.data
             })
