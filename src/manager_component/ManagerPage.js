@@ -10,6 +10,7 @@ import ManagerDashboad from './ManagerDashboad';
 import ProductDetail from './Product/ProductDetail';
 import ProductUpdate from './Product/ProductUpdate';
 import Footer from '../Maincomponent/Footer';
+import UserState from './User/UserState';
 
 function ManagerPage() {
 
@@ -20,7 +21,18 @@ function ManagerPage() {
     const [productDetail, setProductDetail] = useState(false);
     const [productInsertOption, setProductInsertOption] = useState(false);
     const [productUpdate, setProductUpdate] = useState(false);
-
+    const [userState, setUserState] = useState(false);
+    
+    const userStateOpen = ()=>{
+        setUserState(true);
+        setProductInsert(false);
+        setProductList(false);
+        setUserList(false);
+        setDashBoard(false);
+        setProductDetail(false);
+        setProductInsertOption(false);
+        setProductUpdate(false);
+    }
     const productInsertOpen = ()=>{
         setProductInsert(true);
         setProductList(false);
@@ -29,6 +41,7 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
+        setUserState(false);
     }
 
     const productListOpen= ()=>{
@@ -39,6 +52,7 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
+        setUserState(false);
     }
 
     const userListOpen= ()=>{
@@ -49,6 +63,7 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
+        setUserState(false);
     }
     const dashBoardOpen= ()=>{
         setDashBoard(true);
@@ -58,6 +73,7 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
+        setUserState(false);
     }
     const productDetailOpen=()=>{
         setProductDetail(true);
@@ -67,6 +83,7 @@ function ManagerPage() {
         setProductInsert(false);
         setProductInsertOption(false);
         setProductUpdate(false);
+        setUserState(false);
     }
     const productInsertOptionOpen=()=>{
         setProductInsertOption(true);
@@ -76,6 +93,7 @@ function ManagerPage() {
         setProductList(false);
         setProductInsert(false);
         setProductUpdate(false);
+        setUserState(false);
     }
     const productUpdateOptionOpen=()=>{
         setProductUpdate(true);
@@ -85,19 +103,22 @@ function ManagerPage() {
         setUserList(false);
         setProductList(false);
         setProductInsert(false);
+        setUserState(false);
     }
 
     return (
         <>  
         <ManagerHeader dashBoardOpen={dashBoardOpen}/>
         <div className="manager-wapper">
-          
+        <div className="manager_login"><span>관리자 / 로그아웃</span></div>
+                
             <div class="block"></div>
                 <div className="manager-main">
                     <ManagerSidebar 
                     productInsertOpen={productInsertOpen} 
                     productListOpen={productListOpen}
                     userListOpen={userListOpen}
+                    userStateOpen={userStateOpen}
                     />
                 <div className="division"></div>
                     <div className="manager-content">
@@ -108,7 +129,7 @@ function ManagerPage() {
                         {productDetail&&<ProductDetail productUpdateOptionOpen={productUpdateOptionOpen}/>}
                         {userList && <UserList/>}
                         {productUpdate && <ProductUpdate/>}
-                        
+                        {userState && <UserState/>}
                     </div>
                 </div>
                

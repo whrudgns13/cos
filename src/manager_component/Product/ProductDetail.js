@@ -2,10 +2,11 @@ import React, {useState,useEffect} from 'react';
 import AxiosApiService from '../../AxiosApiService';
 import '../managerCss/productDetail.css';
 import Button from '@material-ui/core/Button';
+import {useHistory} from "react-router-dom";
 function ProductDetail({productUpdateOptionOpen}) {
 const [products,setProducts] = useState({product:[0]});
     const imgUrl = "/imgs/";
-
+    const history = useHistory();
     
     useEffect(()=>{
         getProductDetail()
@@ -23,12 +24,18 @@ const [products,setProducts] = useState({product:[0]});
             console.log('getProductDetail() Error!', err);
         })
     }
-    function productUpdate(){
-        
+    const productDelete =()=>{
+        AxiosApiService.productDelete(products.product[0].product_id)
+        .then( res => {
+            history.push('/manager');
+        })
+        .catch(err => {
+            console.log('productDelete() Error!', err);
+        })
     }
     return (
         <>
-        
+        <button onClick={()=>console.log(products)}>1234</button>
         <h1>상세 보기</h1>
         <div className="detail_wapper">
             <img className="detail_img" src={imgUrl+products.product[0].product_img}></img>
@@ -106,7 +113,7 @@ const [products,setProducts] = useState({product:[0]});
                 </div>
                 <div className="detail_button">
                     <button onClick={()=>productUpdateOptionOpen()}>상품 수정하기</button>
-                     <button >상품 삭제하기</button>
+                     <button onClick={productDelete}>상품 삭제하기</button>
                 </div>
             </div>
         </div>

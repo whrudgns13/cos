@@ -1,5 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import LoginTextComponent from '../../Login/LoginTextComponent';
 import MainComponent from "../../Maincomponent/Main";
 import ManagerPage from '../../manager_component/ManagerPage';
 import ProductDetail from '../../manager_component/Product/ProductDetail';
@@ -22,7 +23,7 @@ const AppRouter = () => {
                         <Route path="/productList" component={ProductList} />
                         <Route path="/productDetail" component={ProductDetail} />
                         <Route path="/userList" component={UserList} />
-                        
+                        <Route path="/login" component={LoginTextComponent} />
                     </Switch>
             </BrowserRouter>
         </div>

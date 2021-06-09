@@ -5,9 +5,9 @@ function ManagerHeader({dashBoardOpen}){
     return(
         <>
         <div className="manager-navigation">
-            <div className="banner" style={{height:'10%'}}>
+            <div className="banner" style={{height:'10%',opacity:'100'}}>
                 <div className="mid_menu" style={{display:'flex',alignItems:'center'}}>
-                    <button className="logoBtn" onClick={()=>dashBoardOpen()}>
+                 <button className="logoBtn" onClick={()=>dashBoardOpen()}>
                     <img 
                         src={ Logo }
                         style={{height:"50px"}}

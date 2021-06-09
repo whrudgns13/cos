@@ -63,6 +63,7 @@ function ProductInsert() {
         AxiosApiService.insertProduct(productOptions)
             .then( res => {
                 history.push('/manager'); //입력성공시 이동
+                window.localStorage.removeItem('product');
             })
             .catch( err =>{
                 console.log('saveProducet() 에러', err);
@@ -87,7 +88,7 @@ function ProductInsert() {
             ))
         }
         function tableMinus(){
-            setTableAdd(tableAdd.splice(1));
+            setProductOptions(productOptions.splice(1));
         }
     return (
         <>
@@ -136,7 +137,7 @@ function ProductInsert() {
                             </Table>
                         </TableContainer>
                         </div>
-                        <button onClick={saveProduceOption}className="signUp-butten" >submit</button>
+                        <button onClick={saveProduceOption} className="productInsertSubmit" >상품 등록</button>
                         <button onClick={()=>console.log(productOptions)}className="signUp-butten" >출력</button>
         </>
     )

@@ -35,32 +35,14 @@ function ProductInsert({productInsertOptionOpen}) {
     useEffect(()=>{
         console.log(imgStr);
     })
-    /*
-    function fileInputClick(){
-       
-        }
-        
-    }*/
     function onImg(e){
-        /*
-            if(input.files.length===0){
-                return false;    
-            }else{
-                setImgPriView(imgPriView.concat([{}]
-            ))
-        }
-        */
-        //setProduct_img(e.target.files);
-        if(e.target.files.length>0){
-            //0번째 이미지를 받아 imageFile에 저장
-            const imageFile = e.target.files[0];
+        setProduct_img(product_img.concat([e.target.files]));
+        product_img.map((img,index)=>{
+            const imageFile = e.target.files[index];
             const imageUrl = URL.createObjectURL(imageFile);
-            setProduct_img(product_img.concat({file:e.target.files[0]}));
-            //배열 더하기
-            setImgPriView(imgPriView.concat([{img:imageUrl}]));
-            imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
-        }
-        //setImgPriView(imgPriView[0]=imageUrl); //이미지 주소
+            setImgPriView(imgPriView.concat(imageUrl)); //이미지 주소
+        })
+       // imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
     }
     
     function saveImg(e){
@@ -68,12 +50,6 @@ function ProductInsert({productInsertOptionOpen}) {
         for(let i =0; i<product_img.length;i++){
             formData.append("file",product_img[i]);
             console.log("file",product_img[i]);
-        }
-        for (var key of formData.keys()) {
-             console.log(key);
-        }
-        for (var value of formData.values()) {
-            console.log(value);
         }
         const config = {
             headers: {
@@ -101,15 +77,11 @@ function ProductInsert({productInsertOptionOpen}) {
     
     return (
         <>
-           <h1>상품등록</h1>
-           <button onClick={()=>console.log(imgPriView,product_img,product_img[0])}>1234</button>
-        
+            <h1>상품등록</h1>
              <div className="img-category">
                     <div className="priview_img_box">
                         <div className="priview_img" >
-                            {imgPriView.map((priview)=>
-                              <img className="priview" src={priview.img}/>
-                            )}
+                                <img className="priview" src={imgPriView}/>
                         </div>
                         <div className="file_input">
                         <input multiple="multiple" name="product_img" type='file' onChange={onImg}/>
@@ -160,7 +132,7 @@ function ProductInsert({productInsertOptionOpen}) {
                         </div>
                     </div>
                     <button className='optionPage' type="button" onClick={optionPage}>옵션 설정</button>
-                    <button onClick={()=>console.log(product_content,product_title,product_gender,product_category,product_price,product_material)}>옵션 설정</button>
+                    <button onClick={()=>console.log(product_img,imgPriView)}>옵션 설정</button>
     
                 
                 </div>

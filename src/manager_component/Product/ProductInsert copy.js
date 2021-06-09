@@ -1,7 +1,18 @@
 import React, {useState,useEffect} from 'react';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import '../managerCss/productinsert.css'
 import AxiosApiService from '../../AxiosApiService';
 import {useHistory} from "react-router-dom";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { Input } from '@material-ui/core';
 
 function ProductInsert({productInsertOptionOpen}) {
     const [product_title,setProduct_title]= useState('');           //제목
@@ -11,9 +22,10 @@ function ProductInsert({productInsertOptionOpen}) {
     const [product_content,setProduct_content]= useState('');       //상품내용
     const [imgPriView, setImgPriView] = useState([]); 
     const [imgStr, setImgStr] = useState("");               
-    const [product_img,setProduct_img]= useState([]);             //상품이미지
+    const [product_img,setProduct_img]= useState();             //상품이미지
     const [product_material,setProduct_material]= useState();
     const history = useHistory();
+    
     function onTitle(e){
         setProduct_title(e.currentTarget.value);
     }
@@ -35,32 +47,13 @@ function ProductInsert({productInsertOptionOpen}) {
     useEffect(()=>{
         console.log(imgStr);
     })
-    /*
-    function fileInputClick(){
-       
-        }
-        
-    }*/
     function onImg(e){
-        /*
-            if(input.files.length===0){
-                return false;    
-            }else{
-                setImgPriView(imgPriView.concat([{}]
-            ))
-        }
-        */
-        //setProduct_img(e.target.files);
-        if(e.target.files.length>0){
-            //0번째 이미지를 받아 imageFile에 저장
-            const imageFile = e.target.files[0];
-            const imageUrl = URL.createObjectURL(imageFile);
-            setProduct_img(product_img.concat({file:e.target.files[0]}));
-            //배열 더하기
-            setImgPriView(imgPriView.concat([{img:imageUrl}]));
-            imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
-        }
-        //setImgPriView(imgPriView[0]=imageUrl); //이미지 주소
+        setProduct_img(e.target.files);
+        const imageFile = e.target.files[0];
+        const imageUrl = URL.createObjectURL(imageFile);
+        setImgPriView(imageUrl); //이미지 주소
+        imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
+       
     }
     
     function saveImg(e){
@@ -68,12 +61,6 @@ function ProductInsert({productInsertOptionOpen}) {
         for(let i =0; i<product_img.length;i++){
             formData.append("file",product_img[i]);
             console.log("file",product_img[i]);
-        }
-        for (var key of formData.keys()) {
-             console.log(key);
-        }
-        for (var value of formData.values()) {
-            console.log(value);
         }
         const config = {
             headers: {
@@ -101,24 +88,17 @@ function ProductInsert({productInsertOptionOpen}) {
     
     return (
         <>
-           <h1>상품등록</h1>
-           <button onClick={()=>console.log(imgPriView,product_img,product_img[0])}>1234</button>
-        
+            <h1>상품등록</h1>
              <div className="img-category">
-                    <div className="priview_img_box">
-                        <div className="priview_img" >
-                            {imgPriView.map((priview)=>
-                              <img className="priview" src={priview.img}/>
-                            )}
-                        </div>
-                        <div className="file_input">
+                    <div className="priview_grid">
                         <input multiple="multiple" name="product_img" type='file' onChange={onImg}/>
+                        <div className="priview_img" >
+                            <img className="priview" src={imgPriView}/>
                         </div>
                     </div>
-                    
                 <div className="displaybox">
                     <div className="title_box">
-                        <label className="titleLabel">상품 제목</label>
+                        <label className="titleLabel">상품제목</label>
                         <input className="product_title" name="product_title"
                         type="text" placeholder="상품제목" onChange={onTitle}></input>
                     </div>
@@ -129,8 +109,7 @@ function ProductInsert({productInsertOptionOpen}) {
                                 <option value="남자">남자</option>
                                 <option value="여자">여자</option>
                             </select>
-                        </div>
-                        <div className="select-box-div">
+
                             <label className="selectLabel">카테고리</label>
                             <select className="select_category" onChange={selectCategory} defaultValue="상의">
                                 <option value="상의">상의</option>
@@ -139,33 +118,27 @@ function ProductInsert({productInsertOptionOpen}) {
                                 <option value="악세사리">악세사리</option>
                                 <option value="신발">신발</option>
                             </select>
-                            </div>
+                        </div>
                     </div>
             
                     <div className="product_price_stock">
-                            <label className="selectLabel">상품 가격</label>
+                        <div style={{padding:10, paddingLeft:0}}>
+                            <label className="selectLabel">상품가격</label>
                             <input className="product_price" name="product_price"
                             type="text" placeholder="상품가격" onChange={onPrice}></input>
-                    </div>
-                    <div className="product_price_material">
-                            <label className="selectLabel">상품 재질</label>
-                            <input className="product_price" 
-                            type="text" placeholder="상품가격" onChange={onMaterial}></input>
+                        </div>
                     </div>
                     <div className="content_box">
                         <label className="selectLabel">상품설명</label>
-                        <div className="content_box_scroll">
                         <textarea type="text" name="product_content" className="product_content" 
                         placeholder="상품설명" onChange={onContent}></textarea>
-                        </div>
                     </div>
-                    <button className='optionPage' type="button" onClick={optionPage}>옵션 설정</button>
-                    <button onClick={()=>console.log(product_content,product_title,product_gender,product_category,product_price,product_material)}>옵션 설정</button>
-    
-                
+                    <TableCell align="left">
+                        <Input onChange={onMaterial} style={{textAlign:'left'}}></Input>
+                    </TableCell>
                 </div>
             </div>
-            
+            <button type="button" onClick={optionPage}>옵션 설정</button>
             
         </>
     )

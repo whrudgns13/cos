@@ -92,6 +92,7 @@ function ProductUpdate(props) {
         AxiosApiService.productUpdate(products)
         .then( res => {
             history.push('/manager');
+            window.localStorage.removeItem('product_seq');
         })
         .catch(err => {
             console.log('Update() Error!', err);
@@ -110,6 +111,7 @@ function ProductUpdate(props) {
 
     return (
         <>
+        <button onClick={()=>console.log(products)}>1234</button>
         <h1>상품 수정</h1>
         <div className="detail_wapper">
             <img className="detail_img" src={imgUrl+products[0].product_img}></img>

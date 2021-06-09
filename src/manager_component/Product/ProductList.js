@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import IconButton from "@material-ui/core/IconButton";
 import {useHistory} from "react-router-dom";
+import Input from '@material-ui/core/Input';
 
 function ProductList({productDetailOpen}) {
     const[products,setProducts] = useState({product:[0]});
@@ -33,9 +34,14 @@ function ProductList({productDetailOpen}) {
     function search(){
     AxiosApiService.seachProductList(product_title)
             .then( res => {
+                const productCheck = {
+                    chk:res.data
+                }
+                //productCheck.chk.length>0?setResult(false):setResult(true);  
                 setProducts({
                     product : res.data
                 })
+                
             })
             .catch( err =>{
                 console.log('search() 에러', err);
@@ -48,6 +54,7 @@ function ProductList({productDetailOpen}) {
             setProducts({
                 product : res.data
             })
+            
         })
         .catch(err => {
             console.log('getProductList() Error!', err);
@@ -71,8 +78,8 @@ function ProductList({productDetailOpen}) {
         <div style={{width:'100%', display:'flex', alignItems:'center',justifyContent:'space-between'}}>
             <div></div>
             <h1>상품목록</h1>
-            <div style={{height:'30px', display:'flex',justifyContent:'flex-end'}}>
-            <input type="text" placeholder="상품이름 검색" onChange={onChangeSearch} onKeyPress={onKeyPress}/>
+            <div style={{height:'30px',width:'30%' ,display:'flex',justifyContent:'flex-end'}}>
+            <Input type="text" placeholder="상품이름 검색" onChange={onChangeSearch} onKeyPress={onKeyPress}/>
             <IconButton className="menuButton" onClick={search}>
                 <SearchOutlinedIcon/>
             </IconButton>
@@ -102,6 +109,7 @@ function ProductList({productDetailOpen}) {
                            )}
                     </TableBody>
                 </Table>
+               
         </>
     )
 }

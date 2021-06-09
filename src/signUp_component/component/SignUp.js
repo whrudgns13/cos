@@ -5,6 +5,7 @@ import '../css/signUp.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Banner from '../../Maincomponent/Banner';
 import Footer from '../../Maincomponent/Footer';
+import {Table, TableBody, TableCell, TableRow, Grid, Button, Modal, Backdrop, Fade} from '@material-ui/core';
 
 function SignUp(props) {
     const [user_email,setUser_email] = useState('');            //메일
@@ -20,6 +21,7 @@ function SignUp(props) {
     const [isOpenPost, setIsOpenPost] = useState(false);        //api토글
     const [userCheck, setUserCheck] = useState(0); //백엔드에서 중복이메일인지 값을 받아옴
     const [emailCheck, setEmailCheck] = useState(false); //백엔드에서 중복이메일인지 값을 받아옴
+    const [openDetailAddress, setOpenDetailAddress] = useState(false);
 
     const toggleNav = (e) => {
         e.preventDefault();
@@ -140,6 +142,27 @@ function SignUp(props) {
         setDetailAddress(e.currentTarget.value)
     }
 
+    const useStyles = makeStyles((theme) => ({
+        modal: {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        paper: {
+          backgroundColor: theme.palette.background.paper,
+          boxShadow: theme.shadows[5],
+          padding: theme.spacing(5, 5, 5),
+          borderRadius:'10px'
+        },
+      }));
+
+    const classes = useStyles();
+
+    const handleClose = (e) => {
+        setIsOpenPost(false);
+        setOpenDetailAddress(false);
+    };
+    
     //카카오 주소 api
     function seachAddress(e){
         const onCompletePost = (data) => {
@@ -164,21 +187,33 @@ function SignUp(props) {
             console.log(fullAddress);
         }     
       
-   const postCodeStyle =  makeStyles((theme) => ({
-    paper: {
-      position: 'absolute',
-      width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-  }));
-    return (
-        <>
-        {isOpenPost && //isOpenPost가 참이면 보여줌
-            <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} />}
-         </>
+        const postCodeStyle =  makeStyles((theme) => ({
+            paper: {
+            position: 'absolute',
+            width: 400,
+            backgroundColor: theme.palette.background.paper,
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
+            },
+            }));
+            return (
+                <Modal
+                className={classes.modal}
+                open={isOpenPost}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+                >
+                    <Fade in={isOpenPost}>
+                        <div className={classes.paper} style={{width:'640px'}}>
+                            {isOpenPost && <DaumPostcode style={postCodeStyle} onComplete={onCompletePost} />}
+                        </div>
+                    </Fade>
+                </Modal>
     );
     }
 

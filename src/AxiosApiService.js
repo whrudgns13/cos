@@ -34,6 +34,7 @@ class ApiService {
     //이미지 업로드
     uploadFile(FormData){
         console.log("uploadFile 접근");
+        console.log(FormData);
         return axios.post(User_API_BASE_URL+'/manager/upload',FormData);
     }
     //상품목록
@@ -66,6 +67,9 @@ class ApiService {
     }
     productDelete(productID){
         return axios.delete(User_API_BASE_URL+"/manager/productDelect/"+productID);
+    }
+    UserState(){
+        return axios.get(User_API_BASE_URL+"/manager/userState");
     }
 }
 
