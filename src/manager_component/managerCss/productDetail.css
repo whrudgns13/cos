@@ -7,8 +7,12 @@
     justify-content: space-between;
     font-size: 13px;
 }
-.detail_img{
+.detail_img_box{
     width: 50%;
+    display: flex;
+}
+.detail_img{
+    width: 30%;
     object-fit: contain;
 }
 .detail_category{

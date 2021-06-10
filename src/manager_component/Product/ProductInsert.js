@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import '../managerCss/productinsert.css'
 import AxiosApiService from '../../AxiosApiService';
 import {useHistory} from "react-router-dom";
-
+import CancelIcon from '@material-ui/icons/Cancel';
 function ProductInsert({productInsertOptionOpen}) {
     const [product_title,setProduct_title]= useState('');           //제목
     const [product_gender,setProduct_gender]= useState('남자');         //상품성별
@@ -10,10 +10,11 @@ function ProductInsert({productInsertOptionOpen}) {
     const [product_price,setProduct_price]= useState(0);             //상품가격
     const [product_content,setProduct_content]= useState('');       //상품내용
     const [imgPriView, setImgPriView] = useState([]); 
-    const [imgStr, setImgStr] = useState("");               
+    const [imgStr, setImgStr] = useState([]);               
     const [product_img,setProduct_img]= useState([]);             //상품이미지
     const [product_material,setProduct_material]= useState();
     const history = useHistory();
+
     function onTitle(e){
         setProduct_title(e.currentTarget.value);
     }
@@ -32,33 +33,26 @@ function ProductInsert({productInsertOptionOpen}) {
     function onMaterial(e){
         setProduct_material(e.currentTarget.value);
      }
-    useEffect(()=>{
-        console.log(imgStr);
-    })
-    /*
-    function fileInputClick(){
-       
-        }
-        
-    }*/
+   
+    const ImgDelete = (e,index) => {
+        console.log(index);
+        //imgPriview의 0번째부터 index번째를 삭제
+        setImgPriView(imgPriView.slice(0,index));
+        setImgStr(imgStr.slice(0,index));
+        //setImgPriView(imgPriView.filter(x => x.index !== index))
+    }
     function onImg(e){
-        /*
-            if(input.files.length===0){
-                return false;    
-            }else{
-                setImgPriView(imgPriView.concat([{}]
-            ))
-        }
-        */
-        //setProduct_img(e.target.files);
         if(e.target.files.length>0){
             //0번째 이미지를 받아 imageFile에 저장
             const imageFile = e.target.files[0];
             const imageUrl = URL.createObjectURL(imageFile);
-            setProduct_img(product_img.concat({file:e.target.files[0]}));
+            setProduct_img(product_img.concat(e.target.files[0]));
             //배열 더하기
             setImgPriView(imgPriView.concat([{img:imageUrl}]));
-            imgStr.indexOf(imageFile.name)?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
+            setImgStr(imgStr.concat(imageFile.name));
+            //imgStr.includes(imageFile.name)?setImgStr(imgStr+imageFile.name):console.log("중복이름");
+            //setImgStr(imgStr+imageFile.name+",")
+            //imgStr.indexOf(imageFile.name)!=-1?setImgStr(imgStr+imageFile.name+","):console.log("같은 이름 있음");
         }
         //setImgPriView(imgPriView[0]=imageUrl); //이미지 주소
     }
@@ -92,7 +86,7 @@ function ProductInsert({productInsertOptionOpen}) {
             product_category: product_category,
             product_price: product_price,
             product_content: product_content,
-            product_img:imgStr.slice(0,-1),
+            product_img:imgStr.join(','),
             product_material:product_material
         }
         window.localStorage.setItem('product',JSON.stringify(product));
@@ -102,13 +96,16 @@ function ProductInsert({productInsertOptionOpen}) {
     return (
         <>
            <h1>상품등록</h1>
-           <button onClick={()=>console.log(imgPriView,product_img,product_img[0])}>1234</button>
+           <button onClick={()=>console.log(imgStr)}>1234</button>
         
              <div className="img-category">
                     <div className="priview_img_box">
                         <div className="priview_img" >
-                            {imgPriView.map((priview)=>
+                            {imgPriView.map((priview,index)=>
+                                <div className="priview_img_index">
+                              <button className="priview_button" onClick={(e)=>ImgDelete(e,index)}><CancelIcon/></button>
                               <img className="priview" src={priview.img}/>
+                              </div>
                             )}
                         </div>
                         <div className="file_input">

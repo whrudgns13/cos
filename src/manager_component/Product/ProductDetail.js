@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import {useHistory} from "react-router-dom";
 function ProductDetail({productUpdateOptionOpen}) {
 const [products,setProducts] = useState({product:[0]});
+const [productImg,setProductImg] = useState({img:[]});
     const imgUrl = "/imgs/";
     const history = useHistory();
     
@@ -16,6 +17,7 @@ const [products,setProducts] = useState({product:[0]});
     function getProductDetail(){
         AxiosApiService.getProductDetail(window.localStorage.getItem("product_seq"))
         .then( res => {
+            setProductImg({img:res.data[0].product_img.split(",")});
             setProducts({
                 product : res.data
             })
@@ -32,13 +34,19 @@ const [products,setProducts] = useState({product:[0]});
         .catch(err => {
             console.log('productDelete() Error!', err);
         })
-    }
+    } 
+  
     return (
         <>
-        <button onClick={()=>console.log(products)}>1234</button>
+        <button onClick={()=>console.log(products,productImg)}>1234</button>
         <h1>상세 보기</h1>
         <div className="detail_wapper">
-            <img className="detail_img" src={imgUrl+products.product[0].product_img}></img>
+            <div className="detail_img_box">
+            {productImg.img.map((imgs) =>
+                <img className="detail_img" src={imgUrl+imgs}/>
+            )
+            }
+            </div>
             <div className="detail_category">
                 <div className="detail_title">
                     <label>{products.product[0].product_title}</label>

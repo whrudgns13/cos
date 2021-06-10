@@ -51,6 +51,16 @@ function ProductList({productDetailOpen}) {
     function getProductList(){
         AxiosApiService.getProductList()
         .then( res => {
+            res.data.map((data,index)=>{
+                if(res.data[index].product_img.includes(',')){
+                    console.log(res.data[index].product_img);
+                    let idx = res.data[index].product_img.indexOf(',');
+                    let productImg = res.data[index].product_img.slice(0,idx);
+                    res.data[index].product_img = productImg;
+                }
+            }
+            )
+            
             setProducts({
                 product : res.data
             })
@@ -67,7 +77,16 @@ function ProductList({productDetailOpen}) {
         console.log(seq);
         productDetailOpen()
     }
-
+    /*
+    const incision = ()=>{
+        let productIncision = products;
+        productIncision.product.map((product,index)=>{
+            if(product[index].product_img.includes(',')){
+                
+            }
+        })
+        setProducts(productIncision);
+    }*/
     const imgStyle ={
         width: '100px',
         height: '100px',
@@ -75,6 +94,7 @@ function ProductList({productDetailOpen}) {
     };
     return (
         <>
+        <button onClick={()=>console.log(products)}></button>
         <div style={{width:'100%', display:'flex', alignItems:'center',justifyContent:'space-between'}}>
             <div></div>
             <h1>상품목록</h1>
@@ -100,7 +120,12 @@ function ProductList({productDetailOpen}) {
                         {products.product.map(product =>
                             <TableRow style={{height:'20%'}}>
                                 <TableCell component="th" scope="board"> {product.product_id} </TableCell>
-                                <TableCell alingn="right"><img style={imgStyle} src={imgUrl+product.product_img}></img></TableCell>
+                                <TableCell alingn="right">
+                                    <img style={imgStyle} 
+                                    src={imgUrl+product.product_img}>
+
+                                    </img>
+                                </TableCell>
                                 <TableCell alingn="right"><button style={{border:'none', backgroundColor:'#FFFFFF'}} 
                                 onClick={()=>{returnProductDetail(product.product_id)}}>{product.product_title}</button></TableCell>
                                 <TableCell alingn="right">{product.product_gender}</TableCell>

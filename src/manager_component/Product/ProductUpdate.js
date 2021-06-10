@@ -9,9 +9,7 @@ function ProductUpdate(props) {
 
     const [products,setProducts] = useState([0]);
     const imgUrl = "/imgs/";
-    const [imgPriView, setImgPriView] = useState([]); 
-    const [imgStr, setImgStr] = useState("");               
-    const [product_color,setProduct_color]= useState();           //상품컬러
+    const [productImg,setProductImg] = useState({img:[]});
     const history = useHistory();
     
     useEffect(()=>{
@@ -80,6 +78,7 @@ function ProductUpdate(props) {
         AxiosApiService.getProductDetail(window.localStorage.getItem("product_seq"))
         .then( res => {
             let productList = res.data;
+            setProductImg({img:res.data[0].product_img.split(",")});
             setProducts(productList);
             console.log(products);
         })
@@ -111,10 +110,14 @@ function ProductUpdate(props) {
 
     return (
         <>
-        <button onClick={()=>console.log(products)}>1234</button>
+        <button onClick={()=>console.log(products)}/>
         <h1>상품 수정</h1>
         <div className="detail_wapper">
-            <img className="detail_img" src={imgUrl+products[0].product_img}></img>
+        <div className="detail_img_box">
+            {productImg.img.map((imgs) =>
+                <img className="detail_img" src={imgUrl+imgs}/>
+            )}
+            </div>
             <div className="detail_category">
                 <div className="product_update_catagoryBox">
                 <label className="product_update_label">상품 제목</label>
