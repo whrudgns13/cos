@@ -11,12 +11,12 @@ const [productImg,setProductImg] = useState({img:[]});
     
     useEffect(()=>{
         getProductDetail()
-        
     },[])
-   
+    //상세보기 들어올시 먼저 실행
     function getProductDetail(){
         AxiosApiService.getProductDetail(window.localStorage.getItem("product_seq"))
         .then( res => {
+            //백단에서 받은 이미지를 ,로 나눠 배열에 저장
             setProductImg({img:res.data[0].product_img.split(",")});
             setProducts({
                 product : res.data
@@ -26,6 +26,7 @@ const [productImg,setProductImg] = useState({img:[]});
             console.log('getProductDetail() Error!', err);
         })
     }
+    //상품삭제
     const productDelete =()=>{
         AxiosApiService.productDelete(products.product[0].product_id)
         .then( res => {

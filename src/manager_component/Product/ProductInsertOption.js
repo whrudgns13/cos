@@ -17,10 +17,6 @@ import '../managerCss/managerInsertOption.css';
 
 function ProductInsert() {
     const [product,setProduct] = useState({product:[]});            //받아온 상품
-    const [product_color,setProduct_color]= useState();           //상품컬러
-    const [product_size,setProduct_size]= useState();             //상품사이즈
-    const [product_stock,setProduct_stock]= useState();           //상품재고
-    const [tableAdd,setTableAdd] =useState([]);
     const [productOptions,setProductOptions]= useState([]); 
     const history = useHistory();
     const[products,setProducts] = useState({product:[]});
@@ -47,7 +43,7 @@ function ProductInsert() {
         console.log("getProduct 실행");
         getProduct();
     },[])
-
+    //랜더링시 로컬스토리지에 있는 객체를 가져옴(로컬에있는 객체를 가져올시 json으로 형변환)  
     function getProduct(){
         const products = window.localStorage.getItem('product');
         console.log(products);
@@ -58,11 +54,11 @@ function ProductInsert() {
 
     function saveProduceOption(e){
         e.preventDefault();
-        
         //객체에 담은 값들을 백엔드로 전송 axios로
         AxiosApiService.insertProduct(productOptions)
             .then( res => {
                 history.push('/manager'); //입력성공시 이동
+                //로컬스토리지에 있는 데이터 삭제
                 window.localStorage.removeItem('product');
             })
             .catch( err =>{

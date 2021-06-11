@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import Logo from "./images/logo.jpg";
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import "./css/Banner.css"
 import {SidebarData} from "./SidebarData"
 import {Link} from "react-router-dom";
-import SeachCart from "./SeachCart";
+
 function Banner(){
     const [sidebar,setSidebar] = useState(false);
 
@@ -20,6 +22,9 @@ function Banner(){
                         <IconButton className="menuButton" onClick={showSidebar}>
                             <MenuIcon/>
                         </IconButton>
+                        <IconButton className="menuButton">
+                            <SearchOutlinedIcon/>
+                        </IconButton>
                     </div>
                     <div className="mid_menu">
                     <img
@@ -27,8 +32,11 @@ function Banner(){
                         style={{height:"50px"}}
                         alt='testA' />
                     </div>
-                    <SeachCart/>
-                    
+                    <div className="right_menu">
+                    <IconButton className="menuButton">
+                        <ShoppingCartOutlinedIcon/>
+                    </IconButton>
+                    </div>
             </div>
             <nav className={sidebar ? "nav-menu active":"nav-menu"}>
                 <ul className="nav-menu-items">

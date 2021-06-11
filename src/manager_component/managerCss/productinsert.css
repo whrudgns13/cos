@@ -1,54 +1,81 @@
 
 .img-category{
-    width: 90%;
+    width: 100%;
     height: 100%;
     font-weight: 400;
     display: flex;
     margin-top: 30px;
-    justify-content: center;
+    margin-left: 18%;
     font-size: 13px;
+    min-height: 500px;
+}
+.displaybox_scroll{
+    display: flex;
+    flex-direction: column;
+    width: 22%;
+    min-width: 22%;
+    margin-left: 3rem;
+    position: fixed;
+    height: 100%;
+    top: 10%;
+    right: 11%;
 }
 .displaybox{
     display: flex;
     flex-direction: column;
-    width: 40%;
-    margin-left: 5rem;
+    width: 30%;
+    margin-left: 3rem;
     align-items: flex-start;
+    height: 100%;
+    right: 10%;
 }
 
 .priview_img_box{
-    width: 40%;
-    height: 100%;
+    width: 50%;
+    background-color: rgb(243, 241, 241);
+    height: 90%;
 }
 .priview_img{
-    display: flex;
     width: 100%;
-    height: 90%;
+    height: 100%;
     background-color: rgb(243, 241, 241);
-    
 }
 .priview_img_index{
     width:100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    position: relative;
+    top:-30px;
 }
 .priview{
     width: 100%;
-    object-fit: contain;
+    height: 50%;
+}
+.priview_sidebar{
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    height:100%;
+    margin-right: 20px;
+    position: fixed;
+    left:21%;
+    
+}
+.priview_sidebar_img{
+    width: 50px;
+    margin-bottom: 10px;
 }
 .priview_button{
     width: 20%;
+    position: absolute;
+    top:50px;
+    left: 40%;
     font-size: small;
     position: relative;
     background-color: transparent !important;
     background-image: none !important;
     border-color: transparent;
     border: none;
-    color: #FFFFFF;
+    color: black;
     cursor: pointer;
-    top: 30px;
-
 }
 .title_box{
     display: flex;
@@ -164,7 +191,7 @@
     align-items: flex-start;
 }
 .optionPage{
-    width: 70%;
+    width: 100%;
     height: 30px;
     font-size: 12px;
     background-color: #444444;
@@ -174,9 +201,7 @@
     margin-top: 20px
 }
 .file_input{
-    display:flex;
+    position: relative;
     width:100%;
     margin-top:10px;
-    height:10%;
-    justify-content: flex-start;
 }

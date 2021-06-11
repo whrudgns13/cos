@@ -9,6 +9,7 @@
 .manager-content{
     width: 80%;
     display: flex;
+    min-width: 460px;
     flex-direction: column;
     align-items: center;
     color: #444444;
@@ -31,6 +32,7 @@
 }
 .manager-sidebar{
     width: 15%;
+    min-width: 120px;
     margin-top: 30px;
 }
 .manager-sidebar ul li{

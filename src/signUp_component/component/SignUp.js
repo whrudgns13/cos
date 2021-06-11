@@ -15,9 +15,9 @@ function SignUp(props) {
     const [user_name,setUser_name] = useState('');              //이름
     const [user_birthday,setUser_birthday] = useState('');      //생년월일
     const [user_phone,setUser_phone] = useState('');            //핸드폰
-    const [postcode,setPostcode] = useState();                  //우편번호
+    const [post_code,setPost_code] = useState();                  //우편번호
     const [address,setAddress] = useState('');                  //주소
-    const [detailAddress,setDetailAddress] = useState('');      //상세주소
+    const [detail_address,setDetail_address] = useState('');      //상세주소
     const [isOpenPost, setIsOpenPost] = useState(false);        //api토글
     const [userCheck, setUserCheck] = useState(0); //백엔드에서 중복이메일인지 값을 받아옴
     const [emailCheck, setEmailCheck] = useState(false); //백엔드에서 중복이메일인지 값을 받아옴
@@ -77,7 +77,7 @@ function SignUp(props) {
             alert('핸드폰번호를 확인해주세요');
             return false;
         }        
-        if(postcode===''){
+        if(post_code===''){
             alert('우편번호를 확인해주세요');
             return false;
         }   
@@ -94,9 +94,9 @@ function SignUp(props) {
             user_name: user_name,
             user_birthday: user_birthday,
             user_phone: user_phone,
-            postcode: postcode,
+            post_code: post_code,
             address: address,
-            detailaddress: detailAddress
+            detail_address: detail_address
         }
         console.log(user);
         //객체에 담은 값들을 백엔드로 전송 axios로
@@ -132,14 +132,14 @@ function SignUp(props) {
         setUser_phone(e.currentTarget.value)
     }
     function onPostcode(e){
-        setPostcode(e.currentTarget.value)
+        setPost_code(e.currentTarget.value)
     }
     function onAddress(e){
         setAddress(e.currentTarget.value)
     }
 
     function onDetailAddress(e){
-        setDetailAddress(e.currentTarget.value)
+        setDetail_address(e.currentTarget.value)
     }
 
     const useStyles = makeStyles((theme) => ({
@@ -180,7 +180,7 @@ function SignUp(props) {
             fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
             }
             
-            setPostcode(zonecode);
+            setPost_code(zonecode);
             setAddress(fullAddress);
             setIsOpenPost(false);
             console.log(isOpenPost);
@@ -276,7 +276,7 @@ function SignUp(props) {
                     </div>
                     {isOpenPost && seachAddress()}
                     <input className="signUp-input" type="text" id="postcode" placeholder="우편번호" 
-                    name="postcode" value={postcode} onChange={onPostcode}/>
+                    name="postcode" value={post_code} onChange={onPostcode}/>
                     </div>
                     
                     <div className="signUp-inputBox">
@@ -288,7 +288,7 @@ function SignUp(props) {
                     <div className="signUp-inputBox">
                     <label className="signUp-label">DetailAddress</label>
                     <input className="signUp-input"  type="text" id="detailAddress" placeholder="상세주소"
-                    name="detailaddress" value={detailAddress} onChange={onDetailAddress}/>
+                    name="detailaddress" value={detail_address} onChange={onDetailAddress}/>
                     </div>
                     <button className="signUp-save" onClick={saveUser}>Save</button>
                     </form>

@@ -1,9 +1,10 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useRef} from 'react';
 import '../managerCss/productinsert.css'
 import AxiosApiService from '../../AxiosApiService';
 import {useHistory} from "react-router-dom";
 import CancelIcon from '@material-ui/icons/Cancel';
 function ProductInsert({productInsertOptionOpen}) {
+
     const [product_title,setProduct_title]= useState('');           //제목
     const [product_gender,setProduct_gender]= useState('남자');         //상품성별
     const [product_category,setProduct_category]= useState('상의');     //상품카테고리
@@ -13,8 +14,25 @@ function ProductInsert({productInsertOptionOpen}) {
     const [imgStr, setImgStr] = useState([]);               
     const [product_img,setProduct_img]= useState([]);             //상품이미지
     const [product_material,setProduct_material]= useState();
+    const [sidebarOpen,setsidebarOpen] = useState(true);
     const history = useHistory();
+    const imageInput = useRef();
+    const [fiexd,setFiexd] = useState('displaybox');
 
+    const hendlerScroll=()=>{
+        if(window.scrollY >= 300){
+            setFiexd('displaybox_scroll');
+            
+        }else{
+            setFiexd('displaybox');
+        }
+    }
+        window.addEventListener('scroll',hendlerScroll);
+        console.log(window.scrollY);
+
+    const sidebarIsOpen = ()=>{
+        setsidebarOpen(true);
+    } 
     function onTitle(e){
         setProduct_title(e.currentTarget.value);
     }
@@ -76,7 +94,9 @@ function ProductInsert({productInsertOptionOpen}) {
         }
         AxiosApiService.uploadFile(formData,config);
     }
-    
+    const fileClick = () => {
+        imageInput.current.click();
+      }
     function optionPage(e){
         e.preventDefault();
         saveImg();
@@ -92,28 +112,40 @@ function ProductInsert({productInsertOptionOpen}) {
         window.localStorage.setItem('product',JSON.stringify(product));
         productInsertOptionOpen();
     }
-    
+
+    const sidebar = ()=>{
+
+        return(
+            <>
+                <div className="priview_sidebar">
+                {imgPriView.map((priview,index)=>
+                      <img className="priview_sidebar_img" src={priview.img}/>
+                )}
+                </div>
+                
+            </>
+        )
+    }
     return (
         <>
            <h1>상품등록</h1>
-           <button onClick={()=>console.log(imgStr)}>1234</button>
-        
              <div className="img-category">
+                 {sidebarIsOpen&& sidebar()}
                     <div className="priview_img_box">
                         <div className="priview_img" >
                             {imgPriView.map((priview,index)=>
-                                <div className="priview_img_index">
+                            <>
+                            <div className="priview_img_index">
                               <button className="priview_button" onClick={(e)=>ImgDelete(e,index)}><CancelIcon/></button>
                               <img className="priview" src={priview.img}/>
-                              </div>
+                            </div>
+                            </>
                             )}
                         </div>
-                        <div className="file_input">
-                        <input multiple="multiple" name="product_img" type='file' onChange={onImg}/>
-                        </div>
+                        
                     </div>
                     
-                <div className="displaybox">
+                <div className={fiexd}>
                     <div className="title_box">
                         <label className="titleLabel">상품 제목</label>
                         <input className="product_title" name="product_title"
@@ -156,10 +188,12 @@ function ProductInsert({productInsertOptionOpen}) {
                         placeholder="상품설명" onChange={onContent}></textarea>
                         </div>
                     </div>
-                    <button className='optionPage' type="button" onClick={optionPage}>옵션 설정</button>
-                    <button onClick={()=>console.log(product_content,product_title,product_gender,product_category,product_price,product_material)}>옵션 설정</button>
-    
-                
+                    <div style={{display:'flex',width:'100%'}}>
+                        <button className='optionPage' type="button" onClick={fileClick}>이미지 올리기</button>
+                        <button className='optionPage' type="button" onClick={optionPage}>옵션 설정</button>
+                        <input ref={imageInput} style={{display:'none'}} multiple="multiple" name="product_img" type='file' onChange={onImg}/>
+                     </div>   
+                    
                 </div>
             </div>
             

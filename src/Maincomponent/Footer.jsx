@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-dom"
 import "./css/Footer.css"
 function Footer(){
     return(
@@ -31,9 +32,10 @@ function Footer(){
                     <li>이용약관</li>
                     <li>개인정보처리방침</li>
                     <li>현대백화점 그룹</li>
-                    <li>cos 온라인 스토어는 더현대닷컴을 이용하고 있습니다.</li>
                 </ul>
-                
+                <p>cos 온라인 스토어는</p>
+                <p>더현대닷컴을 이용하고 있습니다.</p>
+                <br></br>
                 <p>주식회사 중앙정보원 대표이사:코스모스외5인 서울시 영등포구 여의도</p>
                 <p>사업자등록번호:211-234-34145 통신판매업신고:20213023-231932</p>
             </div>

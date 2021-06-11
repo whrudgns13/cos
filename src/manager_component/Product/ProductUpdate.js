@@ -73,7 +73,7 @@ function ProductUpdate(props) {
         stock[index].product_stock = parseInt(e.currentTarget.value);
         setProducts(stock);
     }
-    
+    //로컬에 있는 값을 보내 그에 해당하는 값을 db에서 가져옴
     function getProductDetail(){
         AxiosApiService.getProductDetail(window.localStorage.getItem("product_seq"))
         .then( res => {
@@ -86,7 +86,7 @@ function ProductUpdate(props) {
             console.log('getProductDetail() Error!', err);
         })
     }
-
+    //상품 업데이트
     const productUpdate=()=>{
         AxiosApiService.productUpdate(products)
         .then( res => {
@@ -97,7 +97,7 @@ function ProductUpdate(props) {
             console.log('Update() Error!', err);
         })
     }
-
+    //상품삭제
     const productDelete =()=>{
         AxiosApiService.productDelete(products[0].product_id)
         .then( res => {

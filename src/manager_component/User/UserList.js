@@ -79,7 +79,6 @@ function UserList({openNoResult,openResult}) {
             <Table style={{width:'100%',marginTop:'30px'}}>
                     <TableHead>
                         <TableRow>
-                            <TableCell alingn="right">고객번호</TableCell>
                             <TableCell alingn="right">고객이메일</TableCell>
                             <TableCell alingn="right">고객이름</TableCell>
                             <TableCell alingn="right">고객전화번호</TableCell>
@@ -91,7 +90,6 @@ function UserList({openNoResult,openResult}) {
                     <TableBody>
                         {users.user.map(user =>
                             <TableRow style={{height:'20%'}}>
-                                <TableCell component="th" scope="board"> {user.user_seq} </TableCell>
                                 <TableCell component="th" scope="board"> {user.user_email} </TableCell>
                                 <TableCell alingn="right">{user.user_name}</TableCell>
                                 <TableCell alingn="right">{user.user_phone}</TableCell>
