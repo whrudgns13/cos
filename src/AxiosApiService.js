@@ -20,8 +20,11 @@ class ApiService {
     getUserList(){
         return axios.get(User_API_BASE_URL+"/manager/userList");
     }
+    userCount(){
+        return axios.get(User_API_BASE_URL+"/manager/userCount");
+    }
      //유저검색
-     userseachList(searchType,keyword){
+    userseachList(searchType,keyword){
         console.log(User_API_BASE_URL+"/manager/userSearch/"+keyword+"/"+searchType);
         return axios.get(User_API_BASE_URL+"/manager/userSearch/"+keyword+"/"+searchType);
     }
@@ -37,10 +40,17 @@ class ApiService {
         console.log(FormData);
         return axios.post(User_API_BASE_URL+'/manager/upload',FormData);
     }
-    //상품목록
-    getProductList(){
-        return axios.get(User_API_BASE_URL+"/manager/productList");
+    //상품페이지개수
+    productCount(){
+        return axios.get(User_API_BASE_URL+'/manager/productCount');
     }
+    //상품목록
+    /*
+    getProductList(pageNum){
+        console.log('getProductList 접근');
+        return axios.get(User_API_BASE_URL+"/manager/productList/"+pageNum);
+    }*/
+   
     //상품검색
     seachProductList(product_title){
         return axios.get(User_API_BASE_URL+'/manager/seach/' + product_title);
@@ -62,15 +72,22 @@ class ApiService {
         return axios.put(User_API_BASE_URL+"/manager/productUpdate", products);
     }
     //상품리스트
-    getProductList(){
+    /*getProductList(){
         return axios.get(User_API_BASE_URL+"/manager/productList");
+    }*/
+    getProductList(pageNum){
+        console.log('getProductList 접근');
+        return axios.get(User_API_BASE_URL+"/manager/productList/"+pageNum);
     }
+    //상품삭제
     productDelete(productID){
         return axios.delete(User_API_BASE_URL+"/manager/productDelect/"+productID);
     }
+    //유저현황
     UserState(){
         return axios.get(User_API_BASE_URL+"/manager/userState");
     }
+    
 }
 
 

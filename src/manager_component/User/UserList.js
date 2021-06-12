@@ -17,7 +17,8 @@ function UserList({openNoResult,openResult}) {
     const [keyword,setKeyword] = useState('');
     const [searchType,setSearchType] = useState('user_name');
     const [result,setResult] = useState(false);
-    
+    const [pageNums,setPageNums] = useState(0);
+
     function onChangeSearch(e){
         setKeyword(e.currentTarget.value);
     }
@@ -27,17 +28,29 @@ function UserList({openNoResult,openResult}) {
     //새로고침시에만 실행
     useEffect(()=>{
         getUserList()
+        getUserCount()
     },[])
 
     //서버 유저목록 가져옴
-    function getUserList(){
-        AxiosApiService.getUserList()
+    const getUserList=(pageNum)=>{
+        AxiosApiService.getUserList(pageNum)
         .then(res=>{
             setUsers({user:res.data});
+            window.scrollTo(0,0);
         })
         
         .catch(err => {
             console.log('getUserList() Error!', err);
+        })
+    }
+
+    function getUserCount(){
+        AxiosApiService.userCount()
+        .then(res=>{
+            setPageNums(res.data)
+        })
+        .catch(err => {
+            console.log('getProductCount() Error!', err);
         })
     }
 
@@ -99,6 +112,13 @@ function UserList({openNoResult,openResult}) {
                             )}
                     </TableBody>
                 </Table>
+                <div style={{display:'flex',marginTop:'10px'}}>
+                {[...new Array(pageNums)].map((page,index)=>
+                    <div style={{marginRight:'5px'}}>
+                   <button style={{border:'none',padding:'5px',cursor:'pointer'}} onClick={()=>getUserList(index+1)}>{index+1}</button>
+                   </div>
+                )}
+                </div>
         </>
     )
 }

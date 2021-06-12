@@ -132,9 +132,8 @@ function ManagerPage() {
                         {userState && <UserState/>}
                     </div>
                 </div>
-               
         </div>
-         <Footer/>
+         
          </>
     )
 }
