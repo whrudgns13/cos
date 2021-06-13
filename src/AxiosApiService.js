@@ -17,9 +17,10 @@ class ApiService {
         return axios.post(User_API_BASE_URL+'/signUp',user);
     }
     //유저목록
-    getUserList(){
-        return axios.get(User_API_BASE_URL+"/manager/userList");
+    getUserList(pageNum){
+        return axios.get(User_API_BASE_URL+"/manager/userList/"+pageNum);
     }
+    //유저수
     userCount(){
         return axios.get(User_API_BASE_URL+"/manager/userCount");
     }
@@ -44,13 +45,6 @@ class ApiService {
     productCount(){
         return axios.get(User_API_BASE_URL+'/manager/productCount');
     }
-    //상품목록
-    /*
-    getProductList(pageNum){
-        console.log('getProductList 접근');
-        return axios.get(User_API_BASE_URL+"/manager/productList/"+pageNum);
-    }*/
-   
     //상품검색
     seachProductList(product_title){
         return axios.get(User_API_BASE_URL+'/manager/seach/' + product_title);
@@ -59,6 +53,20 @@ class ApiService {
     itemsCnt(){
         console.log("itemsCnt 접근");
         return axios.get(User_API_BASE_URL+"/manager");
+    }
+    //주문리스트
+    orderState(){
+        console.log("productState 접근");
+        return axios.get(User_API_BASE_URL+"/manager/orderStatus");
+    }
+    //주문상세
+    orderDetail(order_detail_num,user_email){
+        console.log("orderDetail 접근");
+        return axios.get(User_API_BASE_URL+"/manager/orderDetail/"+order_detail_num+"/"+user_email);
+    }
+    stateChange(order_status,order_id){
+        console.log("stateChange 접근");
+        return axios.put(User_API_BASE_URL+"/manager/stateChange/"+order_status+"/"+order_id);
     }
     //상품상세보기
     getProductDetail(seq){
@@ -71,10 +79,7 @@ class ApiService {
         console.log(products);
         return axios.put(User_API_BASE_URL+"/manager/productUpdate", products);
     }
-    //상품리스트
-    /*getProductList(){
-        return axios.get(User_API_BASE_URL+"/manager/productList");
-    }*/
+    //유저리스트
     getProductList(pageNum){
         console.log('getProductList 접근');
         return axios.get(User_API_BASE_URL+"/manager/productList/"+pageNum);

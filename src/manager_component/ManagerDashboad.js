@@ -33,7 +33,10 @@ function ManagerDashboad() {
                     <h2>유저수</h2><br/>
                     <h1>{items.user_cnt}</h1>
                 </div>
-                
+                <div className="Cnt" >
+                    <h2>주문개수</h2><br/>
+                    <h1>{items.order_cnt}</h1>
+                </div>
             </div>
          )}
         </>

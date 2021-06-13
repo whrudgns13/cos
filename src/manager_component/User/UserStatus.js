@@ -5,13 +5,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import Select from '@material-ui/core/Select';
-import IconButton from "@material-ui/core/IconButton";
-import SearchErr from '../SearchErr';
-import Input from '@material-ui/core/Input';
 
-function UserState({openNoResult,openResult}) {
+
+function UserStatus({openNoResult,openResult}) {
     //서버에서 받아올 유저 저장소
     const [users,setUsers] = useState({user:[]});
     
@@ -64,4 +60,4 @@ function UserState({openNoResult,openResult}) {
     )
 }
 
-export default UserState
+export default UserStatus

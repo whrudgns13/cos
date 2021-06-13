@@ -10,7 +10,9 @@ import ManagerDashboad from './ManagerDashboad';
 import ProductDetail from './Product/ProductDetail';
 import ProductUpdate from './Product/ProductUpdate';
 import Footer from '../Maincomponent/Footer';
-import UserState from './User/UserState';
+import UserState from './User/UserStatus';
+import OrderStatus from './Order/OrderStatus';
+import OrderDetail from './Order/OrderDetail';
 
 function ManagerPage() {
 
@@ -21,10 +23,14 @@ function ManagerPage() {
     const [productDetail, setProductDetail] = useState(false);
     const [productInsertOption, setProductInsertOption] = useState(false);
     const [productUpdate, setProductUpdate] = useState(false);
-    const [userState, setUserState] = useState(false);
-    
-    const userStateOpen = ()=>{
-        setUserState(true);
+    const [userStatus, setUserStatus] = useState(false);
+    const [orderStatus, setOrderStatus] = useState(false);
+    const [orderDetail, setOrderDetail] = useState(false);
+
+    const orderDetailOpen = ()=>{
+        setOrderDetail(true);
+        setOrderStatus(false);
+        setUserStatus(false);
         setProductInsert(false);
         setProductList(false);
         setUserList(false);
@@ -32,6 +38,30 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
+    }
+    const orderStatusOpen = ()=>{
+        setOrderStatus(true);
+        setUserStatus(false);
+        setProductInsert(false);
+        setProductList(false);
+        setUserList(false);
+        setDashBoard(false);
+        setProductDetail(false);
+        setProductInsertOption(false);
+        setProductUpdate(false);
+        setOrderDetail(false);
+    }
+    const userStatusOpen = ()=>{
+        setUserStatus(true);
+        setProductInsert(false);
+        setProductList(false);
+        setUserList(false);
+        setDashBoard(false);
+        setProductDetail(false);
+        setProductInsertOption(false);
+        setProductUpdate(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
     const productInsertOpen = ()=>{
         setProductInsert(true);
@@ -41,7 +71,9 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
-        setUserState(false);
+        setUserStatus(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
 
     const productListOpen= ()=>{
@@ -52,7 +84,9 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
-        setUserState(false);
+        setUserStatus(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
 
     const userListOpen= ()=>{
@@ -63,7 +97,9 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
-        setUserState(false);
+        setUserStatus(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
     const dashBoardOpen= ()=>{
         setDashBoard(true);
@@ -73,7 +109,9 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
-        setUserState(false);
+        setUserStatus(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
     const productDetailOpen=()=>{
         setProductDetail(true);
@@ -83,7 +121,9 @@ function ManagerPage() {
         setProductInsert(false);
         setProductInsertOption(false);
         setProductUpdate(false);
-        setUserState(false);
+        setUserStatus(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
     const productInsertOptionOpen=()=>{
         setProductInsertOption(true);
@@ -93,7 +133,9 @@ function ManagerPage() {
         setProductList(false);
         setProductInsert(false);
         setProductUpdate(false);
-        setUserState(false);
+        setUserStatus(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
     const productUpdateOptionOpen=()=>{
         setProductUpdate(true);
@@ -103,7 +145,9 @@ function ManagerPage() {
         setUserList(false);
         setProductList(false);
         setProductInsert(false);
-        setUserState(false);
+        setUserStatus(false);
+        setOrderStatus(false);
+        setOrderDetail(false);
     }
 
     return (
@@ -118,7 +162,8 @@ function ManagerPage() {
                     productInsertOpen={productInsertOpen} 
                     productListOpen={productListOpen}
                     userListOpen={userListOpen}
-                    userStateOpen={userStateOpen}
+                    userStatusOpen={userStatusOpen}
+                    orderStatusOpen={orderStatusOpen}
                     />
                 <div className="division"></div>
                     <div className="manager-content">
@@ -129,7 +174,9 @@ function ManagerPage() {
                         {productDetail&&<ProductDetail productUpdateOptionOpen={productUpdateOptionOpen}/>}
                         {userList && <UserList/>}
                         {productUpdate && <ProductUpdate/>}
-                        {userState && <UserState/>}
+                        {userStatus && <UserState/>}
+                        {orderStatus&&<OrderStatus orderDetailOpen={orderDetailOpen}/>}
+                        {orderDetail&& <OrderDetail/>}
                     </div>
                 </div>
         </div>

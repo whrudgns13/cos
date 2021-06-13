@@ -27,7 +27,7 @@ function UserList({openNoResult,openResult}) {
     }
     //새로고침시에만 실행
     useEffect(()=>{
-        getUserList()
+        getUserList(0)
         getUserCount()
     },[])
 
@@ -35,10 +35,11 @@ function UserList({openNoResult,openResult}) {
     const getUserList=(pageNum)=>{
         AxiosApiService.getUserList(pageNum)
         .then(res=>{
-            setUsers({user:res.data});
+            setUsers({
+                user:res.data
+            })
             window.scrollTo(0,0);
         })
-        
         .catch(err => {
             console.log('getUserList() Error!', err);
         })
