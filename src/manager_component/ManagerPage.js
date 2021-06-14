@@ -13,7 +13,7 @@ import Footer from '../Maincomponent/Footer';
 import UserState from './User/UserStatus';
 import OrderStatus from './Order/OrderStatus';
 import OrderDetail from './Order/OrderDetail';
-
+import CancleOrder from './Order/CancleOrder';
 function ManagerPage() {
 
     const [productInsert, setProductInsert] = useState(false);
@@ -26,7 +26,22 @@ function ManagerPage() {
     const [userStatus, setUserStatus] = useState(false);
     const [orderStatus, setOrderStatus] = useState(false);
     const [orderDetail, setOrderDetail] = useState(false);
+    const [cancleOrder,setCancleOrder]= useState(false);
 
+    const cancleOrderOpen = ()=>{
+        setCancleOrder(true);
+        setOrderDetail(false);
+        setOrderStatus(false);
+        setUserStatus(false);
+        setProductInsert(false);
+        setProductList(false);
+        setUserList(false);
+        setDashBoard(false);
+        setProductDetail(false);
+        setProductInsertOption(false);
+        setProductUpdate(false);
+       
+    }
     const orderDetailOpen = ()=>{
         setOrderDetail(true);
         setOrderStatus(false);
@@ -38,6 +53,7 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
+        setCancleOrder(false);
     }
     const orderStatusOpen = ()=>{
         setOrderStatus(true);
@@ -50,6 +66,7 @@ function ManagerPage() {
         setProductInsertOption(false);
         setProductUpdate(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
     const userStatusOpen = ()=>{
         setUserStatus(true);
@@ -62,6 +79,7 @@ function ManagerPage() {
         setProductUpdate(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
     const productInsertOpen = ()=>{
         setProductInsert(true);
@@ -74,6 +92,7 @@ function ManagerPage() {
         setUserStatus(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
 
     const productListOpen= ()=>{
@@ -87,6 +106,7 @@ function ManagerPage() {
         setUserStatus(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
 
     const userListOpen= ()=>{
@@ -100,6 +120,7 @@ function ManagerPage() {
         setUserStatus(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
     const dashBoardOpen= ()=>{
         setDashBoard(true);
@@ -112,6 +133,7 @@ function ManagerPage() {
         setUserStatus(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
     const productDetailOpen=()=>{
         setProductDetail(true);
@@ -124,6 +146,7 @@ function ManagerPage() {
         setUserStatus(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
     const productInsertOptionOpen=()=>{
         setProductInsertOption(true);
@@ -136,6 +159,7 @@ function ManagerPage() {
         setUserStatus(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
     const productUpdateOptionOpen=()=>{
         setProductUpdate(true);
@@ -148,6 +172,7 @@ function ManagerPage() {
         setUserStatus(false);
         setOrderStatus(false);
         setOrderDetail(false);
+        setCancleOrder(false);
     }
 
     return (
@@ -162,6 +187,7 @@ function ManagerPage() {
                     productInsertOpen={productInsertOpen} 
                     productListOpen={productListOpen}
                     userListOpen={userListOpen}
+                    cancleOrderOpen={cancleOrderOpen}
                     userStatusOpen={userStatusOpen}
                     orderStatusOpen={orderStatusOpen}
                     />
@@ -172,6 +198,7 @@ function ManagerPage() {
                         {productInsertOption && <ProductInsertOption />}
                         {productList && <ProductList productDetailOpen={productDetailOpen}/>}
                         {productDetail&&<ProductDetail productUpdateOptionOpen={productUpdateOptionOpen}/>}
+                        {cancleOrder&&<CancleOrder/>}
                         {userList && <UserList/>}
                         {productUpdate && <ProductUpdate/>}
                         {userStatus && <UserState/>}

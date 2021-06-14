@@ -52,7 +52,7 @@ function OrderDetail({orderStatusOpen}) {
         <>
         
         <h1>주문 상세</h1>
-        <div style={{width:'100%', display:'flex', alignItems:'center',justifyContent:'center'}}>
+        <div style={{width:'100%',marginTop:'38px', display:'flex', alignItems:'center',justifyContent:'center'}}>
            
             <div className="detail_wapper">
                 <div className="detail_img_box">

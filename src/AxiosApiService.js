@@ -74,6 +74,15 @@ class ApiService {
         console.log("orderCount 접근");
         return axios.get(User_API_BASE_URL+"/manager/orderCount");
     }
+    //취소요청
+    cancleOrder(pageNum){
+        console.log("cancleOrder 접근");
+        return axios.get(User_API_BASE_URL+"/manager/cancleOrder/"+pageNum);
+    }
+    cancleOrderCount(){
+        console.log("cancleOrderCount 접근");
+        return axios.get(User_API_BASE_URL+"/manager/cancleOrderCount");
+    }
     //상품상세보기
     getProductDetail(seq){
         console.log('getProductDetail 접근');

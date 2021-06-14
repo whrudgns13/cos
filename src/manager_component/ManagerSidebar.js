@@ -1,13 +1,14 @@
 import React from 'react'
-function ManagerSidebar({productInsertOpen,productListOpen,userListOpen,userStatusOpen,orderStatusOpen}) {
+function ManagerSidebar({productInsertOpen,productListOpen,userListOpen,userStatusOpen,orderStatusOpen,cancleOrderOpen}) {
     return (
         <div className="manager-sidebar">
                 <ul>
-                    <butten onClick={()=>productInsertOpen()}><li>상품등록</li></butten>
-                    <butten onClick={()=>productListOpen()}><li>상품목록</li></butten>
-                    <butten onClick={()=>orderStatusOpen()}><li>주문현황</li></butten>
-                    <butten onClick={()=>userListOpen()}><li>유저목록</li></butten>
-                    <butten onClick={()=>userStatusOpen()}><li>유저현황</li></butten>
+                    <butten className='sidebarBtn' onClick={()=>productInsertOpen()}><li>상품등록</li></butten>
+                    <butten className='sidebarBtn' onClick={()=>productListOpen()}><li>상품목록</li></butten>
+                    <butten className='sidebarBtn' onClick={()=>orderStatusOpen()}><li>주문현황</li></butten>
+                    <butten className='sidebarBtn' onClick={()=>cancleOrderOpen()}><li>취소요청</li></butten>
+                    <butten className='sidebarBtn' onClick={()=>userListOpen()}><li>유저목록</li></butten>
+                    <butten className='sidebarBtn' onClick={()=>userStatusOpen()}><li>유저현황</li></butten>
                 </ul>
             </div>
     )
