@@ -4,6 +4,7 @@ import AxiosApiService from '../../AxiosApiService'
 function OrderDetail({orderStatusOpen}) {
     //서버에서 받아올 유저 저장소
     const [orders,setOrders] = useState({order:[]});
+    const [productImg,setProductImg] = useState({img:[]});
     const imgUrl = "/imgs/";
 
     //새로고침시에만 실행
@@ -18,7 +19,8 @@ function OrderDetail({orderStatusOpen}) {
         console.log(order_detail_num,user_email);
         AxiosApiService.orderDetail(order_detail_num,user_email)
         .then(res=>{
-            setOrders({order:res.data})
+            setOrders({order:res.data});
+            setProductImg({img:res.data.product_img.split(",")});
         })
         .catch(err => {
             console.log('getOrderDetail() Error!', err);
@@ -35,17 +37,27 @@ function OrderDetail({orderStatusOpen}) {
         })
         
     }
-
+    const sidebar = ()=>{
+        return(
+           <>
+               <div style={{top:'33%'}} className="priview_sidebar">
+               {productImg.img.map((imgs,index) =>
+                     <img className="priview_sidebar_img" src={imgUrl+imgs}/>
+               )}
+               </div>
+           </>
+       )
+   }
     return (
         <>
         
-        <button onClick={()=>console.log(orders)}>1234</button>
-         <h1>주문 상세</h1>
+        <h1>주문 상세</h1>
         <div style={{width:'100%', display:'flex', alignItems:'center',justifyContent:'center'}}>
            
             <div className="detail_wapper">
                 <div className="detail_img_box">
-                    <img className="detail_img" src={imgUrl+orders.order.product_img}/>
+                {sidebar()}
+                    <img className="detail_img" src={imgUrl+productImg.img[0]}/>
             </div>
             <div className="detail_category">
                 <div className="detail_box_gender_category">

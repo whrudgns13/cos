@@ -1,11 +1,19 @@
 .dashboard_wapper{
     width:100%;
-    margin-top:30px;
     display:flex;
-    flex-direction: block;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+.dashboard_row{
+    width:100%;
+    margin-top:30px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .Cnt{
     background-color:'red';
     width:30%;

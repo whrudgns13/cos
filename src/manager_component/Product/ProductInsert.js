@@ -54,7 +54,7 @@ function ProductInsert({productInsertOptionOpen}) {
    
     const ImgDelete = (e,index) => {
         console.log(index);
-        //imgPriview의 0번째부터 index번째를 삭제
+        //imgPriview의 0번째부터 index번째를 추출
         setImgPriView(imgPriView.slice(0,index));
         setImgStr(imgStr.slice(0,index));
         //setImgPriView(imgPriView.filter(x => x.index !== index))
@@ -106,6 +106,7 @@ function ProductInsert({productInsertOptionOpen}) {
             product_category: product_category,
             product_price: product_price,
             product_content: product_content,
+            //join 배열을 ,기준으로 합침
             product_img:imgStr.join(','),
             product_material:product_material
         }
@@ -114,8 +115,7 @@ function ProductInsert({productInsertOptionOpen}) {
     }
 
     const sidebar = ()=>{
-
-        return(
+         return(
             <>
                 <div className="priview_sidebar">
                 {imgPriView.map((priview,index)=>

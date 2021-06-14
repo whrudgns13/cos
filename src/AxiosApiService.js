@@ -55,18 +55,24 @@ class ApiService {
         return axios.get(User_API_BASE_URL+"/manager");
     }
     //주문리스트
-    orderState(){
+    orderState(pageNum){
         console.log("productState 접근");
-        return axios.get(User_API_BASE_URL+"/manager/orderStatus");
+        return axios.get(User_API_BASE_URL+"/manager/orderStatus/"+pageNum);
     }
     //주문상세
     orderDetail(order_detail_num,user_email){
         console.log("orderDetail 접근");
         return axios.get(User_API_BASE_URL+"/manager/orderDetail/"+order_detail_num+"/"+user_email);
     }
+    //주문상태변경
     stateChange(order_status,order_id){
         console.log("stateChange 접근");
         return axios.put(User_API_BASE_URL+"/manager/stateChange/"+order_status+"/"+order_id);
+    }
+    //주문 처리중인 개수
+    orderCount(){
+        console.log("orderCount 접근");
+        return axios.get(User_API_BASE_URL+"/manager/orderCount");
     }
     //상품상세보기
     getProductDetail(seq){

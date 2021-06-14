@@ -9,20 +9,32 @@ import TableRow from '@material-ui/core/TableRow';
 function OrderStatus({orderDetailOpen}) {
     //서버에서 받아올 유저 저장소
     const [orders,setOrders] = useState({order:[]});
-    
+    const [pageNums,setPageNums] = useState(0);
     //새로고침시에만 실행
     useEffect(()=>{
-        getProductOrder()
+        getProductOrder(0);
+        getOrderCount();
     },[])
 
-    //서버 유저목록 가져옴
-    function getProductOrder(){
-        AxiosApiService.orderState()
+    //서버 상품주문목록 가져옴
+    const getProductOrder=(pageNum)=>{
+        AxiosApiService.orderState(pageNum)
         .then(res=>{
             setOrders({order:res.data});
         })
         .catch(err => {
             console.log('getUserState() Error!', err);
+        })
+        window.scrollTo(0,0);
+    }
+    //주문개수
+    function getOrderCount(){
+        AxiosApiService.orderCount()
+        .then(res=>{
+            setPageNums(res.data)
+        })
+        .catch(err => {
+            console.log('getOrderCount() Error!', err);
         })
     }
     const returnOrderDetail=(order_detail_num,user_email)=>{
@@ -34,7 +46,7 @@ function OrderStatus({orderDetailOpen}) {
     return (
         <>
             <div style={{width:'100%', display:'flex', alignItems:'center',justifyContent:'center'}}>
-                <button onClick={()=>console.log(orders,orders.order[0].order_detail_num)}></button>
+                <button onClick={()=>console.log(orders,pageNums)}></button>
                 <h1>주문 현황</h1>
                 </div>
             <Table style={{width:'100%',marginTop:'30px'}}>
@@ -63,6 +75,13 @@ function OrderStatus({orderDetailOpen}) {
                             )}
                     </TableBody>
                 </Table>
+                <div style={{display:'flex',marginTop:'10px'}}>
+                {[...new Array(pageNums)].map((page,index)=>
+                    <div style={{marginRight:'5px'}}>
+                   <button style={{border:'none',padding:'5px',cursor:'pointer'}} onClick={()=>getProductOrder(index+1)}>{index+1}</button>
+                   </div>
+                )}
+                </div>
         </>
     )
 }

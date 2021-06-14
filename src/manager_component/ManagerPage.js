@@ -176,7 +176,7 @@ function ManagerPage() {
                         {productUpdate && <ProductUpdate/>}
                         {userStatus && <UserState/>}
                         {orderStatus&&<OrderStatus orderDetailOpen={orderDetailOpen}/>}
-                        {orderDetail&& <OrderDetail/>}
+                        {orderDetail&& <OrderDetail orderStatusOpen={orderStatusOpen}/>}
                     </div>
                 </div>
         </div>
