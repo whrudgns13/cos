@@ -3,12 +3,17 @@ import AxiosApiService from '../../AxiosApiService';
 import '../managerCss/productDetail.css';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
-function ProductDetail({ productUpdateOptionOpen }) {
+function ProductDetail({ productListOpen,productUpdateOptionOpen }) {
     const [products, setProducts] = useState({ product: [0] });
     const [productImg, setProductImg] = useState({ img: [] });
     const imgUrl = "/imgs/";
     const history = useHistory();
 
+    window.onpopstate = (e)=>{
+       if(window.history.back()){
+        productListOpen();
+       }
+    }
     useEffect(() => {
         getProductDetail()
     }, [])

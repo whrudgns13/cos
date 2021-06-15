@@ -12,12 +12,12 @@ function CancleOrder() {
     const [pageNums,setPageNums] = useState(0);
     //새로고침시에만 실행
     useEffect(()=>{
-        getProductOrder(0);
+        getCancleOrder(0);
         getCancleOrderCount();
     },[])
 
     //서버 상품주문목록 가져옴
-    const getProductOrder=(pageNum)=>{
+    const getCancleOrder=(pageNum)=>{
         AxiosApiService.cancleOrder(pageNum)
         .then(res=>{
             setOrders({order:res.data});
@@ -38,10 +38,11 @@ function CancleOrder() {
             console.log('getOrderCount() Error!', err);
         })
     }
+    //배송상태 변경
     const deliveryStatus=(status,order_id)=>{
         AxiosApiService.stateChange(status,order_id)
         .then(res=>{
-                
+
         })
         .catch(err => {
             console.log('deliveryStatus() Error!', err);
@@ -50,7 +51,6 @@ function CancleOrder() {
     return (
         <>
             <div style={{width:'100%', display:'flex', alignItems:'center',justifyContent:'center'}}>
-                <button onClick={()=>console.log(orders,pageNums,orders.order.order_id)}></button>
                 <h1>취소 요청</h1>
                 </div>
             <Table style={{width:'100%',marginTop:'30px'}}>
@@ -83,7 +83,7 @@ function CancleOrder() {
                 <div style={{display:'flex',marginTop:'10px'}}>
                 {[...new Array(pageNums)].map((page,index)=>
                     <div style={{marginRight:'5px'}}>
-                   <button style={{border:'none',padding:'5px',cursor:'pointer'}} onClick={()=>getProductOrder(index+1)}>{index+1}</button>
+                   <button style={{border:'none',padding:'5px',cursor:'pointer'}} onClick={()=>getCancleOrder(index+1)}>{index+1}</button>
                    </div>
                 )}
                 </div>

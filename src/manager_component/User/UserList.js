@@ -6,9 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import Select from '@material-ui/core/Select';
 import IconButton from "@material-ui/core/IconButton";
-import SearchErr from '../SearchErr';
 import Input from '@material-ui/core/Input';
 
 function UserList({ openNoResult, openResult }) {
@@ -30,6 +28,12 @@ function UserList({ openNoResult, openResult }) {
         getUserList(0)
         getUserCount()
     }, [])
+
+    const onKeyPress = (e) => {
+        if (e.key === "Enter") {
+            search();
+        }
+    }
 
     //서버 유저목록 가져옴
     const getUserList = (pageNum) => {
@@ -74,7 +78,6 @@ function UserList({ openNoResult, openResult }) {
 
     return (
         <>
-            <button onClick={() => console.log(users)}></button>
             <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div></div>
                 <h1>고객목록</h1>
@@ -84,7 +87,7 @@ function UserList({ openNoResult, openResult }) {
                         <option name="user_email" value="user_email">고객 이메일</option >
                         <option name="user_phone" value="user_phone">고객 전화번호</option>
                     </select>
-                    <Input style={{ fontSize: '12px' }} type="text" placeholder="유저 검색" onChange={onChangeSearch} />
+                    <Input style={{ fontSize: '12px' }} type="text" placeholder="유저 검색" onChange={onChangeSearch} onKeyPress={onKeyPress} />
                     <IconButton className="menuButton" onClick={search}>
                         <SearchOutlinedIcon />
                     </IconButton>

@@ -5,7 +5,7 @@ import '../managerCss/productUpdate.css';
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CancelIcon from '@material-ui/icons/Cancel';
-function ProductUpdate(props) {
+function ProductUpdate({productDetailOpen,productListOpen}) {
 
     const [products, setProducts] = useState([0]);
     const imgUrl = "/imgs/";
@@ -96,7 +96,7 @@ function ProductUpdate(props) {
     const productUpdate = () => {
         AxiosApiService.productUpdate(products)
             .then(res => {
-                history.push('/manager');
+                productDetailOpen();
                 window.localStorage.removeItem('product_seq');
             })
             .catch(err => {
@@ -107,7 +107,8 @@ function ProductUpdate(props) {
     const productDelete = () => {
         AxiosApiService.productDelete(products[0].product_id)
             .then(res => {
-                history.push('/manager');
+                productListOpen();
+                window.localStorage.removeItem('product_seq');
             })
             .catch(err => {
                 console.log('productDelete() Error!', err);
@@ -175,7 +176,6 @@ function ProductUpdate(props) {
     }
     return (
         <>
-            <button onClick={() => console.log(products, productImg.img)} />
             <h1>상품 수정</h1>
             <div className="detail_wapper">
                 {sidebarIsOpen && sidebar()}

@@ -22,6 +22,7 @@ function ProductList({ productDetailOpen }) {
         getProductList(0);
     }, [])
 
+    
     function onChangeSearch(e) {
         setProduct_title(e.currentTarget.value);
         console.log(product_title);
@@ -35,10 +36,6 @@ function ProductList({ productDetailOpen }) {
     function search() {
         AxiosApiService.seachProductList(product_title)
             .then(res => {
-                const productCheck = {
-                    chk: res.data
-                }
-                //productCheck.chk.length>0?setResult(false):setResult(true);  
                 setProducts({
                     product: res.data
                 })
@@ -98,7 +95,6 @@ function ProductList({ productDetailOpen }) {
     };
     return (
         <>
-            <button onClick={() => console.log(products, pageNums)}></button>
             <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div></div>
                 <h1>상품목록</h1>

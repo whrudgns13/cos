@@ -197,10 +197,10 @@ function ManagerPage() {
                         {productInsert && <ProductInsert productInsertOptionOpen={productInsertOptionOpen}/>}
                         {productInsertOption && <ProductInsertOption />}
                         {productList && <ProductList productDetailOpen={productDetailOpen}/>}
-                        {productDetail&&<ProductDetail productUpdateOptionOpen={productUpdateOptionOpen}/>}
+                        {productDetail&&<ProductDetail productListOpen={productListOpen} productUpdateOptionOpen={productUpdateOptionOpen}/>}
                         {cancleOrder&&<CancleOrder/>}
                         {userList && <UserList/>}
-                        {productUpdate && <ProductUpdate/>}
+                        {productUpdate && <ProductUpdate productDetailOpen={productDetailOpen} productListOpen={productListOpen}/>}
                         {userStatus && <UserState/>}
                         {orderStatus&&<OrderStatus orderDetailOpen={orderDetailOpen}/>}
                         {orderDetail&& <OrderDetail orderStatusOpen={orderStatusOpen}/>}

@@ -29,6 +29,7 @@ class ApiService {
         console.log(User_API_BASE_URL+"/manager/userSearch/"+keyword+"/"+searchType);
         return axios.get(User_API_BASE_URL+"/manager/userSearch/"+keyword+"/"+searchType);
     }
+   
     //상품등록
     insertProduct(product){
         console.log(product);
@@ -74,11 +75,16 @@ class ApiService {
         console.log("orderCount 접근");
         return axios.get(User_API_BASE_URL+"/manager/orderCount");
     }
+    orderStatusSearch(searchType,keyword){
+        console.log("orderStatusSearch 접근");
+        return axios.get(User_API_BASE_URL+"/manager/orderStatusSearch/"+keyword+"/"+searchType);
+    }
     //취소요청
     cancleOrder(pageNum){
         console.log("cancleOrder 접근");
         return axios.get(User_API_BASE_URL+"/manager/cancleOrder/"+pageNum);
     }
+    //취소요청 개수
     cancleOrderCount(){
         console.log("cancleOrderCount 접근");
         return axios.get(User_API_BASE_URL+"/manager/cancleOrderCount");
@@ -104,10 +110,17 @@ class ApiService {
         return axios.delete(User_API_BASE_URL+"/manager/productDelect/"+productID);
     }
     //유저현황
-    UserState(){
-        return axios.get(User_API_BASE_URL+"/manager/userState");
+    UserState(pageNum){
+        return axios.get(User_API_BASE_URL+"/manager/userState/"+pageNum);
     }
-    
+    //유저상태검색
+    userStateSeachList(searchType,keyword){
+        return axios.get(User_API_BASE_URL+"/manager/userStateSearch/"+keyword+"/"+searchType);
+    }
+    //유저현황개수
+    getUserLogCount(){
+        return axios.get(User_API_BASE_URL+"/manager/userLogCount");
+    }
 }
 
 

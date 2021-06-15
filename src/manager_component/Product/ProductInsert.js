@@ -22,7 +22,6 @@ function ProductInsert({productInsertOptionOpen}) {
     const hendlerScroll=()=>{
         if(window.scrollY >= 300){
             setFiexd('displaybox_scroll');
-            
         }else{
             setFiexd('displaybox');
         }

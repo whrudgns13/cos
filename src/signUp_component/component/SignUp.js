@@ -14,6 +14,7 @@ function SignUp(props) {
     const [passwordError, setPasswordError] = useState(false);   //실시간으로 패스워드 확인
     const [user_name, setUser_name] = useState('');              //이름
     const [user_birthday, setUser_birthday] = useState('');      //생년월일
+    const [user_gender,setUser_gender] = useState('남자');
     const [user_phone, setUser_phone] = useState('');            //핸드폰
     const [post_code, setPost_code] = useState();                  //우편번호
     const [address, setAddress] = useState('');                  //주소
@@ -124,6 +125,9 @@ function SignUp(props) {
     }
     function onName(e) {
         setUser_name(e.currentTarget.value)
+    }
+    function onGender(e){
+        setUser_gender(e.currentTarget.value)
     }
     function onBirthday(e) {
         setUser_birthday(e.currentTarget.value)
@@ -249,6 +253,14 @@ function SignUp(props) {
                         {passwordError && <span style={{ color: 'red', fontSize: '12px' }}>
                             비밀번호가 일치하지 않습니다.
                         </span>}
+                    </div>
+
+                    <div className="signUp-inputBox">
+                        <label className="signUp-label">성별</label>
+                        <select onChange={onGender}>
+                            <option value='남자'> 남자</option>
+                            <option value='여자'> 남자</option>
+                        </select>
                     </div>
 
                     <div className="signUp-inputBox">
