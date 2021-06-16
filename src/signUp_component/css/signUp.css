@@ -51,6 +51,12 @@
     text-align: left;
     padding: 5px;
 }
+.signUp-select{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid rgb(245, 245, 241);
+    background-color: rgb(245, 245, 241);
+}
 .signUp-butten{
     background-color: rgb(245, 245, 241);
     border: 0px;    

@@ -9,14 +9,14 @@
 .manager-content{
     width: 80%;
     display: flex;
-    min-width: 460px;
+    min-width: 950px;
+    min-height: 500px;
     flex-direction: column;
     align-items: center;
     color: #444444;
-    margin-top: 30px;
     margin-bottom: 50px;
     padding: 0 30px;
-
+    border-left:1px solid lightgray;
 }
 .manager-main{
     display: flex;
@@ -58,5 +58,12 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
+}
+.pageTitle{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:30px;
 }
 input:focus, textarea:focus{     outline: none; }

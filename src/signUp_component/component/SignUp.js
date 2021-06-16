@@ -5,7 +5,8 @@ import '../css/signUp.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Banner from '../../Maincomponent/Banner';
 import Footer from '../../Maincomponent/Footer';
-import { Table, TableBody, TableCell, TableRow, Grid, Button, Modal, Backdrop, Fade } from '@material-ui/core';
+import { Modal, Backdrop, Fade } from '@material-ui/core';
+import SignUpBox from './SignUpBox';
 
 function SignUp(props) {
     const [user_email, setUser_email] = useState('');            //메일
@@ -14,7 +15,7 @@ function SignUp(props) {
     const [passwordError, setPasswordError] = useState(false);   //실시간으로 패스워드 확인
     const [user_name, setUser_name] = useState('');              //이름
     const [user_birthday, setUser_birthday] = useState('');      //생년월일
-    const [user_gender,setUser_gender] = useState('남자');
+    const [user_gender, setUser_gender] = useState('남자');
     const [user_phone, setUser_phone] = useState('');            //핸드폰
     const [post_code, setPost_code] = useState();                  //우편번호
     const [address, setAddress] = useState('');                  //주소
@@ -33,20 +34,25 @@ function SignUp(props) {
 
     function checkEmail(e) {  //이메일 중복체크
         e.preventDefault();
-        AxiosApiService.getUserEmail(user_email)
-            .then(res => {
-                let userEmail = res.data;//백엔드에서 값을 받아 변수에 저장 
-                setUserCheck(userEmail);  //받아온 값을 useState에 저장
-                if (userCheck > 0) {          //이메일이 있으면 0보다 큰 숫자가 들어옴
-                    alert('이메일이 이미 존재합니다')
-                } else {
-                    alert('사용 가능한 이메일 입니다.')
-                    setEmailCheck(true);
-                }
-            })
-            .catch(err => {
-                console.log('getUserEmail() 에러', err);
-            });
+        if (/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(user_email)) {
+            AxiosApiService.getUserEmail(user_email)
+                .then(res => {
+                    let userEmail = res.data;//백엔드에서 값을 받아 변수에 저장 
+                    setUserCheck(userEmail);  //받아온 값을 useState에 저장
+                    if (userCheck > 0) {          //이메일이 있으면 0보다 큰 숫자가 들어옴
+                        alert('이메일이 이미 존재합니다')
+                    } else {
+                        alert('사용 가능한 이메일 입니다.')
+                        setEmailCheck(true);
+                    }
+                })
+                .catch(err => {
+                    console.log('getUserEmail() 에러', err);
+                });
+        } else {
+            alert('이메일형식이 올바르지 않습니다.')
+        }
+
     }
 
     //사용자가 submit시 실행되는 이벤트
@@ -54,27 +60,27 @@ function SignUp(props) {
         e.preventDefault();
 
         //빈칸확인
-        if (user_email === '' || emailCheck === false) {
+        if (!(/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(user_email)) || user_email === '' || emailCheck === false) {
             alert('이메일를 체크해주세요');
             return false;
         }
-        if (user_password === '') {
-            alert('비밀번호를 확인해주세요');
+        if (!(/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/.test(user_password)) || user_password === '') {
+            alert('비밀번호가 비어있거나 형태가 맞지않습니다.');
             return false;
         }
         if (user_passwordChk === '') {
-            alert('비밀번호를 확인해주세요');
+            alert('비밀번호가 일치하는지 확인해주세요');
             return false;
         }
         if (user_name === '') {
             alert('이름을 확인해주세요');
             return false;
         }
-        if (user_birthday === '') {
+        if (!(/^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/.test(user_birthday)) || user_birthday === '') {
             alert('생년월일을 확인해주세요');
             return false;
         }
-        if (user_phone === '') {
+        if (!(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/.test(user_phone)) || user_phone === '') {
             alert('핸드폰번호를 확인해주세요');
             return false;
         }
@@ -94,6 +100,7 @@ function SignUp(props) {
             user_password: user_password,
             user_name: user_name,
             user_birthday: user_birthday,
+            user_gender: user_gender,
             user_phone: user_phone,
             post_code: post_code,
             address: address,
@@ -126,7 +133,7 @@ function SignUp(props) {
     function onName(e) {
         setUser_name(e.currentTarget.value)
     }
-    function onGender(e){
+    function onGender(e) {
         setUser_gender(e.currentTarget.value)
     }
     function onBirthday(e) {
@@ -187,8 +194,6 @@ function SignUp(props) {
             setPost_code(zonecode);
             setAddress(fullAddress);
             setIsOpenPost(false);
-            console.log(isOpenPost);
-            console.log(fullAddress);
         }
 
         const postCodeStyle = makeStyles((theme) => ({
@@ -221,92 +226,31 @@ function SignUp(props) {
         );
     }
 
+
     return (
         <>
             <Banner />
-            <div className="signUp-wapper">
-                <div className="signUp-title">
-                    <span className="sign">Sign Up</span>
-                </div>
-
-                <form className="signUp-form">
-                    <div className="signUp-inputBox">
-                        <div className="signUp-inputRow">
-                            <label className="signUp-label">Email</label>
-                            <button className="signUp-butten" onClick={checkEmail}>이메일 체크</button>
-                        </div>
-                        <input className="signUp-input" type="email" placeholder="이메일"
-                            id="email" name="user_email" value={user_email} onChange={onEmail} />
-
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">Password</label>
-                        <input className="signUp-input" type="password" placeholder="비밀번호"
-                            name="user_password" value={user_password} onChange={onPassword} />
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">Password</label>
-                        <input className="signUp-input" type="password" placeholder="비밀번호 확인"
-                            value={user_passwordChk} onChange={onPasswordChk} />
-                        {passwordError && <span style={{ color: 'red', fontSize: '12px' }}>
-                            비밀번호가 일치하지 않습니다.
-                        </span>}
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">성별</label>
-                        <select onChange={onGender}>
-                            <option value='남자'> 남자</option>
-                            <option value='여자'> 남자</option>
-                        </select>
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">Name</label>
-                        <input className="signUp-input" type="text" placeholder="이름"
-                            name="user_name" value={user_name} onChange={onName} />
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">Birthday</label>
-                        <input className="signUp-input" type="text" placeholder="생년월일 (예)950804"
-                            name="user_birthday" value={user_birthday} onChange={onBirthday} />
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">Phone</label>
-                        <input className="signUp-input" placeholder="핸드폰 번호 -없이 입력해주세요"
-                            name="user_phone" value={user_phone} onChange={onPhone} />
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <div className="signUp-inputRow">
-                            <label className="signUp-label">Postcode</label>
-                            <button className="signUp-butten" onClick={toggleNav} value="우편번호 찾기">우편번호 찾기</button>
-                        </div>
-                        {isOpenPost && seachAddress()}
-                        <input className="signUp-input" type="text" id="postcode" placeholder="우편번호"
-                            name="postcode" value={post_code} onChange={onPostcode} />
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">Address</label>
-                        <input className="signUp-input" type="text" id="address" placeholder="주소"
-                            name="roadaddress" value={address} onChange={onAddress} />
-                    </div>
-
-                    <div className="signUp-inputBox">
-                        <label className="signUp-label">DetailAddress</label>
-                        <input className="signUp-input" type="text" id="detailAddress" placeholder="상세주소"
-                            name="detailaddress" value={detail_address} onChange={onDetailAddress} />
-                    </div>
-                    <button className="signUp-save" onClick={saveUser}>Save</button>
-                </form>
-            </div>
-
-            <Footer />
+            <SignUpBox
+                checkEmail={checkEmail}
+                onEmail={onEmail}
+                onPassword={onPassword}
+                onPasswordChk={onPasswordChk}
+                onGender={onGender}
+                onName={onName}
+                onBirthday={onBirthday}
+                onPhone={onPhone}
+                toggleNav={toggleNav}
+                onPostcode={onPostcode}
+                onDetailAddress={onDetailAddress}
+                saveUser={saveUser}
+                passwordError={passwordError}
+                seachAddress={seachAddress}
+                onAddress={onAddress}
+                onDetailAddress={onDetailAddress}
+                isOpenPost={isOpenPost}
+                post_code={post_code}
+                address={address}
+            />
         </>
     )
 }

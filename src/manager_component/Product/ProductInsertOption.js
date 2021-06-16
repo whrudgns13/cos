@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import InsertOptionComponent from './component/InsertOptionComponent'
 import { Input } from '@material-ui/core';
 
 import '../managerCss/managerInsertOption.css';
@@ -89,6 +89,15 @@ function ProductInsert() {
     return (
         <>
             <h1>상품 옵션</h1>
+            <InsertOptionComponent
+                product={product}
+                productOptions={productOptions}
+                tablePlus={tablePlus}
+                tableMinus={tableMinus}
+                onSize={onSize}
+                onColor={onColor}
+                onStock={onStock}
+            />
             <div className="product_selectOption">
                 <TableContainer component={Paper}>
                     <Table aria-label="caption table">

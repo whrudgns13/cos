@@ -18,11 +18,6 @@ const AppRouter = () => {
                         <Route exact path="/" component={MainComponent} />
                         <Route path="/signUp" component={SignUp} />
                         <Route path="/manager" component={ManagerPage} />
-                        <Route path="/productInsert" component={ProductInsert} />
-                        <Route path="/productInsertOption" component={ProductInsertOption} />
-                        <Route path="/productList" component={ProductList} />
-                        <Route path="/productDetail" component={ProductDetail} />
-                        <Route path="/userList" component={UserList} />
                         <Route path="/login" component={LoginTextComponent} />
                     </Switch>
             </BrowserRouter>

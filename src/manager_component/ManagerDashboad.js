@@ -22,7 +22,7 @@ function ManagerDashboad() {
 
     return (
         <>
-            <h1>Dash Board</h1>
+            <h1 style={{marginTop:'30px'}}>Dash Board</h1>
             {managerItems.items.map(items =>
                 <div className="dashboard_wapper">
                     <div className="dashboard_row">

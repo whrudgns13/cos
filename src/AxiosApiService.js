@@ -75,6 +75,7 @@ class ApiService {
         console.log("orderCount 접근");
         return axios.get(User_API_BASE_URL+"/manager/orderCount");
     }
+    //주문 검색
     orderStatusSearch(searchType,keyword){
         console.log("orderStatusSearch 접근");
         return axios.get(User_API_BASE_URL+"/manager/orderStatusSearch/"+keyword+"/"+searchType);
@@ -121,6 +122,7 @@ class ApiService {
     getUserLogCount(){
         return axios.get(User_API_BASE_URL+"/manager/userLogCount");
     }
+   
 }
 
 

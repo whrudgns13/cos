@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import ManagerHeader from './ManagerHeader'
 import './managerCss/managermain.css'
 import ManagerSidebar from './ManagerSidebar';
@@ -9,12 +9,12 @@ import UserList from './User/UserList';
 import ManagerDashboad from './ManagerDashboad';
 import ProductDetail from './Product/ProductDetail';
 import ProductUpdate from './Product/ProductUpdate';
-import Footer from '../Maincomponent/Footer';
 import UserState from './User/UserStatus';
 import OrderStatus from './Order/OrderStatus';
 import OrderDetail from './Order/OrderDetail';
 import CancleOrder from './Order/CancleOrder';
-function ManagerPage() {
+import AxiosApiService from '../AxiosApiService';
+function ManagerPage(props) {
 
     const [productInsert, setProductInsert] = useState(false);
     const [productList, setProductList] = useState(false);
@@ -26,9 +26,46 @@ function ManagerPage() {
     const [userStatus, setUserStatus] = useState(false);
     const [orderStatus, setOrderStatus] = useState(false);
     const [orderDetail, setOrderDetail] = useState(false);
-    const [cancleOrder,setCancleOrder]= useState(false);
+    const [cancleOrder, setCancleOrder] = useState(false);
 
-    const cancleOrderOpen = ()=>{
+    //상품삭제 productDetail과 productUpdate에 넣어줌
+    const productDelete = (product_id) => {
+        console.log(product_id);
+        AxiosApiService.productDelete(product_id)
+            .then(res => {
+                productListOpen();
+            })
+            .catch(err => {
+                console.log('productDelete() Error!', err);
+            })
+    }
+    //이미지 저장
+    const saveImg = (product_img) => {
+        const formData = new FormData();
+        for (let i = 0; i < product_img.length; i++) {
+            formData.append("file", product_img[i]);
+            console.log("file", product_img[i]);
+        }
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+        AxiosApiService.uploadFile(formData, config);
+    }
+    //배송상태변경
+    const deliveryStatus=(status,order_id)=>{
+        AxiosApiService.stateChange(status,order_id)
+        .then(res=>{
+            orderStatusOpen();    
+        })
+        .catch(err => {
+            console.log('deliveryStatus() Error!', err);
+        })
+        
+    }
+    //페이지이동
+    const cancleOrderOpen = () => {
         setCancleOrder(true);
         setOrderDetail(false);
         setOrderStatus(false);
@@ -40,9 +77,9 @@ function ManagerPage() {
         setProductDetail(false);
         setProductInsertOption(false);
         setProductUpdate(false);
-       
+
     }
-    const orderDetailOpen = ()=>{
+    const orderDetailOpen = () => {
         setOrderDetail(true);
         setOrderStatus(false);
         setUserStatus(false);
@@ -55,7 +92,7 @@ function ManagerPage() {
         setProductUpdate(false);
         setCancleOrder(false);
     }
-    const orderStatusOpen = ()=>{
+    const orderStatusOpen = () => {
         setOrderStatus(true);
         setUserStatus(false);
         setProductInsert(false);
@@ -68,7 +105,7 @@ function ManagerPage() {
         setOrderDetail(false);
         setCancleOrder(false);
     }
-    const userStatusOpen = ()=>{
+    const userStatusOpen = () => {
         setUserStatus(true);
         setProductInsert(false);
         setProductList(false);
@@ -81,7 +118,7 @@ function ManagerPage() {
         setOrderDetail(false);
         setCancleOrder(false);
     }
-    const productInsertOpen = ()=>{
+    const productInsertOpen = () => {
         setProductInsert(true);
         setProductList(false);
         setUserList(false);
@@ -95,7 +132,7 @@ function ManagerPage() {
         setCancleOrder(false);
     }
 
-    const productListOpen= ()=>{
+    const productListOpen = () => {
         setProductList(true);
         setProductInsert(false);
         setUserList(false);
@@ -109,7 +146,7 @@ function ManagerPage() {
         setCancleOrder(false);
     }
 
-    const userListOpen= ()=>{
+    const userListOpen = () => {
         setUserList(true);
         setProductList(false);
         setProductInsert(false);
@@ -122,7 +159,7 @@ function ManagerPage() {
         setOrderDetail(false);
         setCancleOrder(false);
     }
-    const dashBoardOpen= ()=>{
+    const dashBoardOpen = () => {
         setDashBoard(true);
         setUserList(false);
         setProductList(false);
@@ -135,7 +172,7 @@ function ManagerPage() {
         setOrderDetail(false);
         setCancleOrder(false);
     }
-    const productDetailOpen=()=>{
+    const productDetailOpen = () => {
         setProductDetail(true);
         setDashBoard(false);
         setUserList(false);
@@ -148,7 +185,7 @@ function ManagerPage() {
         setOrderDetail(false);
         setCancleOrder(false);
     }
-    const productInsertOptionOpen=()=>{
+    const productInsertOptionOpen = () => {
         setProductInsertOption(true);
         setProductDetail(false);
         setDashBoard(false);
@@ -161,7 +198,7 @@ function ManagerPage() {
         setOrderDetail(false);
         setCancleOrder(false);
     }
-    const productUpdateOptionOpen=()=>{
+    const productUpdateOptionOpen = () => {
         setProductUpdate(true);
         setProductInsertOption(false);
         setProductDetail(false);
@@ -176,39 +213,37 @@ function ManagerPage() {
     }
 
     return (
-        <>  
-        <ManagerHeader dashBoardOpen={dashBoardOpen}/>
-        <div className="manager-wapper">
-        <div className="manager_login"><span>관리자 / 로그아웃</span></div>
-                
-            <div class="block"></div>
+        <>
+            <ManagerHeader dashBoardOpen={dashBoardOpen} />
+            <div className="manager-wapper">
+                <div className="manager_login"><span>관리자 / 로그아웃</span></div>
+                <div class="block"></div>
                 <div className="manager-main">
-                    <ManagerSidebar 
-                    productInsertOpen={productInsertOpen} 
-                    productListOpen={productListOpen}
-                    userListOpen={userListOpen}
-                    cancleOrderOpen={cancleOrderOpen}
-                    userStatusOpen={userStatusOpen}
-                    orderStatusOpen={orderStatusOpen}
+                    <ManagerSidebar
+                        productInsertOpen={productInsertOpen}
+                        productListOpen={productListOpen}
+                        userListOpen={userListOpen}
+                        cancleOrderOpen={cancleOrderOpen}
+                        userStatusOpen={userStatusOpen}
+                        orderStatusOpen={orderStatusOpen}
                     />
-                <div className="division"></div>
                     <div className="manager-content">
-                        {dashBoard && <ManagerDashboad/>}
-                        {productInsert && <ProductInsert productInsertOptionOpen={productInsertOptionOpen}/>}
+                        {dashBoard && <ManagerDashboad />}
+                        {productInsert && <ProductInsert saveImg={saveImg} productInsertOptionOpen={productInsertOptionOpen} />}
                         {productInsertOption && <ProductInsertOption />}
-                        {productList && <ProductList productDetailOpen={productDetailOpen}/>}
-                        {productDetail&&<ProductDetail productListOpen={productListOpen} productUpdateOptionOpen={productUpdateOptionOpen}/>}
-                        {cancleOrder&&<CancleOrder/>}
-                        {userList && <UserList/>}
-                        {productUpdate && <ProductUpdate productDetailOpen={productDetailOpen} productListOpen={productListOpen}/>}
-                        {userStatus && <UserState/>}
-                        {orderStatus&&<OrderStatus orderDetailOpen={orderDetailOpen}/>}
-                        {orderDetail&& <OrderDetail orderStatusOpen={orderStatusOpen}/>}
+                        {productList && <ProductList productDetailOpen={productDetailOpen} />}
+                        {productDetail && <ProductDetail productDelete={productDelete} productListOpen={productListOpen} productUpdateOptionOpen={productUpdateOptionOpen} />}
+                        {productUpdate && <ProductUpdate saveImg={saveImg} productDelete={productDelete} productDetailOpen={productDetailOpen} productListOpen={productListOpen} />}
+                        {cancleOrder && <CancleOrder deliveryStatus={deliveryStatus}/>}
+                        {userList && <UserList />}
+                        {userStatus && <UserState />}
+                        {orderStatus && <OrderStatus orderDetailOpen={orderDetailOpen} />}
+                        {orderDetail && <OrderDetail deliveryStatus={deliveryStatus} orderStatusOpen={orderStatusOpen} />}
                     </div>
                 </div>
-        </div>
-         
-         </>
+            </div>
+
+        </>
     )
 }
 
