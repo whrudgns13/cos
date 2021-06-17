@@ -1,11 +1,13 @@
 import React, {useState,useEffect} from 'react';
 import AxiosApiService from '../../AxiosApiService'
 import CancleOrderBox from './component/CancleOrderBox';
+import { useHistory } from "react-router-dom";
 
-function CancleOrder({props,deliveryStatus}) {
+function CancleOrder({deliveryStatus}) {
     //서버에서 받아올 유저 저장소
     const [orders,setOrders] = useState({order:[]});
     const [pageNums,setPageNums] = useState(0);
+    let history = useHistory();
     //새로고침시에만 실행
     useEffect(()=>{
         getCancleOrder(0);
@@ -19,7 +21,7 @@ function CancleOrder({props,deliveryStatus}) {
             setOrders({order:res.data});
         })
         .catch(err => {
-            props.history.push('/managerDefaultErr');
+            history.push('/managerDefaultErr');
             console.log('getUserState() Error!', err);
         })
         //스크롤 맨위로
@@ -32,7 +34,7 @@ function CancleOrder({props,deliveryStatus}) {
             setPageNums(res.data);
         })
         .catch(err => {
-            props.history.push('/managerDefaultErr');
+            history.push('/managerDefaultErr');
             console.log('getOrderCount() Error!', err);
         })
     }

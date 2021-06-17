@@ -6,8 +6,9 @@ import { useHistory } from "react-router-dom";
 import Sidebar from './component/Sidebar';
 import CancelIcon from '@material-ui/icons/Cancel';
 import UpdateComponent from './component/UpdateComponent';
-function ProductUpdate({props,productListOpen,productDelete,saveImg}) {
 
+function ProductUpdate({productListOpen,productDelete,saveImg}) {
+    let history = useHistory();
     const [products, setProducts] = useState([0]);
     const imgUrl = "/imgs/";
     const imageInput = useRef();
@@ -87,7 +88,7 @@ function ProductUpdate({props,productListOpen,productDelete,saveImg}) {
                 console.log(products);
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('getProductDetail() Error!', err);
             })
     }
@@ -100,7 +101,7 @@ function ProductUpdate({props,productListOpen,productDelete,saveImg}) {
                 window.localStorage.removeItem('product_seq');
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('Update() Error!', err);
             })
     }
@@ -141,24 +142,34 @@ function ProductUpdate({props,productListOpen,productDelete,saveImg}) {
         console.log(productImg);
         //productImg.img에 할당
         setProductImg({ img: prodimg });
-
+        //배열을 ,를 붙여 문자화
+        let imgStr = prodimg.join(',');
+        //복사
+        let productCopy = products;
+        productCopy.map((product, index) =>
+            //product[index].product_img의 문자를 바꿈
+            productCopy[index].product_img = imgStr
+        )
+        setProducts(productCopy);
     }
     //옵션추가
     function tablePlus() {
-        setProducts(products.concat(
-            [{
-                product_title: products[0].product_title,
-                product_gender: products[0].product_gender,
-                product_category: products[0].product_category,
-                product_price: products[0].product_price,
-                product_content: products[0].product_content,
-                product_img: products[0].product_img,
-                product_material: products[0].product_material,
-                product_size: '',
-                product_color: '',
-                product_stock: '',
-            }]
-        ))
+        let insertproducts =[{  
+            //product_seq:(products[products.length-1].product_seq)+1,
+            product_id:products[0].product_id,
+            product_title: products[0].product_title,
+            product_gender: products[0].product_gender,
+            product_category: products[0].product_category,
+            product_price: products[0].product_price,
+            product_content: products[0].product_content,
+            product_img: products[0].product_img,
+            product_material: products[0].product_material,
+            product_size: '',
+            product_color: '',
+            product_stock: '',
+        }]
+        //AxiosApiService.insertProduct(products);
+        setProducts(products.concat(insertproducts))
     }
     //옵션삭제
     const tableMinus = (index) => {
@@ -170,6 +181,7 @@ function ProductUpdate({props,productListOpen,productDelete,saveImg}) {
     }
     return (
         <>
+        <button onClick={()=>console.log(products,productImg)}></button>
             <h1 style={{marginTop:'30px'}}>상품 수정</h1>
             <div className="detail_wapper">
                <Sidebar productImg={productImg} />

@@ -41,6 +41,7 @@ function ManagerPage(props) {
     }
     //이미지 저장
     const saveImg = (product_img) => {
+        if(product_img.length>0){
         const formData = new FormData();
         for (let i = 0; i < product_img.length; i++) {
             formData.append("file", product_img[i]);
@@ -59,7 +60,7 @@ function ManagerPage(props) {
             props.history.push('/managerDefaultErr');
             console.log('saveImg() Error!', err);
         })
-        
+        }
     }
     const eventError = (e)=>{
         e.preventdefault();

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import AxiosApiService from '../../AxiosApiService'
 import Sidebar from '../Product/component/Sidebar'
 import OrderDetailBox from './component/OrderDetailBox'
-function OrderDetail({props,deliveryStatus }) {
+import { useHistory } from "react-router-dom";
+function OrderDetail({deliveryStatus }) {
     //서버에서 받아올 유저 저장소
     const [orders, setOrders] = useState({ order: [] });
     const [productImg, setProductImg] = useState({ img: [] });
     const imgUrl = "/imgs/";
-
+    let history = useHistory();
     //새로고침시에만 실행
     useEffect(() => {
         getOrderDetail()
@@ -24,7 +25,7 @@ function OrderDetail({props,deliveryStatus }) {
                 setProductImg({ img: res.data.product_img.split(",") });
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('getOrderDetail() Error!', err);
             })
     }

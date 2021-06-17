@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import CancelIcon from '@material-ui/icons/Cancel';
 import Sidebar from './component/Sidebar';
 function ProductInsert({ productInsertOptionOpen,saveImg }) {
-
+    let history = useHistory();
     const [product_title, setProduct_title] = useState('');           //제목
     const [product_gender, setProduct_gender] = useState('남자');         //상품성별
     const [product_category, setProduct_category] = useState('상의');     //상품카테고리

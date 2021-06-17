@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import AxiosApiService from '../../AxiosApiService';
 import ProductListTable from './component/ProductListTable'
+import { useHistory } from "react-router-dom";
 
 function ProductList({ props,productDetailOpen }) {
     const [products, setProducts] = useState({ product: [0] });
     const [product_title, setProduct_title] = useState('');
     const [pageNums, setPageNums] = useState(0);
     const [pageOpen,setPageOpen] = useState(true);
+    let history = useHistory();
 
     useEffect(() => {
         getProductCount();
@@ -26,13 +28,25 @@ function ProductList({ props,productDetailOpen }) {
     function search() {
         AxiosApiService.seachProductList(product_title)
             .then(res => {
+                res.data.map((data, index) => {
+                    //만약 res.data[index]에 product_img를 가져올때 문자열에 ,가 있으면 아래 로직 실행
+                    if (res.data[index].product_img.includes(',')) {
+                        console.log(res.data[index].product_img);
+                        //product_img안에 ,가 몇번째에 있는지 저장
+                        let idx = res.data[index].product_img.indexOf(',');
+                        //product_img 문자열 0번째부터 ,를 기준으로 배열로 나눔
+                        let productImg = res.data[index].product_img.slice(0, idx);
+                        res.data[index].product_img = productImg;
+                    }
+                }
+                )
                 setProducts({
                     product: res.data
                 })
                 setPageOpen(false);
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('search() 에러', err);
             });
     }
@@ -43,7 +57,7 @@ function ProductList({ props,productDetailOpen }) {
                 setPageNums(res.data)
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('getProductCount() Error!', err);
             })
     }
@@ -70,7 +84,7 @@ function ProductList({ props,productDetailOpen }) {
                 window.scrollTo(0, 0);
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+               history.push('/managerDefaultErr');
                 console.log('getProductList() Error!', err);
             })
     }

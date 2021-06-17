@@ -4,7 +4,6 @@ import DaumPostcode from 'react-daum-postcode';
 import '../css/signUp.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Banner from '../../Maincomponent/Banner';
-import Footer from '../../Maincomponent/Footer';
 import { Modal, Backdrop, Fade } from '@material-ui/core';
 import SignUpBox from './SignUpBox';
 

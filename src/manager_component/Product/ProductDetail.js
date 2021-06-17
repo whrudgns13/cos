@@ -4,7 +4,9 @@ import '../managerCss/productDetail.css';
 import Sidebar from './component/Sidebar';
 import DetailBox from './component/DetailBox';
 import DetailCategory from './component/DetailCategory';
-function ProductDetail({ props, productUpdateOptionOpen, productDelete }) {
+import { useHistory } from "react-router-dom";
+function ProductDetail({productUpdateOptionOpen, productDelete }) {
+    let history = useHistory();
     const [products, setProducts] = useState({ product: [0] });
     const [productImg, setProductImg] = useState({ img: [] });
     const imgUrl = "/imgs/";
@@ -30,7 +32,7 @@ function ProductDetail({ props, productUpdateOptionOpen, productDelete }) {
                 })
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+               history.push('/managerDefaultErr');
                 console.log('getProductDetail() Error!', err);
             })
     }

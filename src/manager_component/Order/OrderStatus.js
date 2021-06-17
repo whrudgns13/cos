@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import AxiosApiService from '../../AxiosApiService'
 import OrderStatusBox from './component/OrderStatusBox'
+import { useHistory } from "react-router-dom";
 
-
-function OrderStatus({ props,orderDetailOpen }) {
+function OrderStatus({orderDetailOpen }) {
     //서버에서 받아올 유저 저장소
     const [orders, setOrders] = useState({ order: [] });
     const [keyword, setKeyword] = useState('');
     const [searchType, setSearchType] = useState('product_title');
     const [pageNums, setPageNums] = useState(0);
     const [pageOpen, setPageOpen] = useState(true);
+    let history = useHistory();
 
     function onChangeSearch(e) {
         setKeyword(e.currentTarget.value);
@@ -38,7 +39,7 @@ function OrderStatus({ props,orderDetailOpen }) {
                 setOrders({ order: res.data });
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('getUserState() Error!', err);
             })
         window.scrollTo(0, 0);
@@ -50,7 +51,7 @@ function OrderStatus({ props,orderDetailOpen }) {
                 setPageNums(res.data)
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('getOrderCount() Error!', err);
             })
     }
@@ -65,7 +66,7 @@ function OrderStatus({ props,orderDetailOpen }) {
                 setPageOpen(false);
             })
             .catch(err => {
-                props.history.push('/managerDefaultErr');
+                history.push('/managerDefaultErr');
                 console.log('search() 에러', err);
             });
     }
