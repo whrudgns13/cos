@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import AxiosApiService from '../../AxiosApiService';
 import '../managerCss/productDetail.css';
-import { useHistory } from "react-router-dom";
 import Sidebar from './component/Sidebar';
 import DetailBox from './component/DetailBox';
 import DetailCategory from './component/DetailCategory';
-function ProductDetail({ productListOpen, productUpdateOptionOpen, productDelete }) {
+function ProductDetail({ props, productUpdateOptionOpen, productDelete }) {
     const [products, setProducts] = useState({ product: [0] });
     const [productImg, setProductImg] = useState({ img: [] });
     const imgUrl = "/imgs/";
-    const history = useHistory();
 
     /*
     window.onpopstate = (e)=>{
@@ -32,6 +30,7 @@ function ProductDetail({ productListOpen, productUpdateOptionOpen, productDelete
                 })
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getProductDetail() Error!', err);
             })
     }

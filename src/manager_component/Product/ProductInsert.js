@@ -16,20 +16,8 @@ function ProductInsert({ productInsertOptionOpen,saveImg }) {
     const [product_img, setProduct_img] = useState([]);             //상품이미지
     const [product_material, setProduct_material] = useState();
     const [sidebarOpen, setsidebarOpen] = useState(true);
-    const history = useHistory();
     const imageInput = useRef();
-    const [fiexd, setFiexd] = useState('displaybox');
-
-    const hendlerScroll = () => {
-        if (window.scrollY >= 300) {
-            setFiexd('displaybox_scroll');
-        } else {
-            setFiexd('displaybox');
-        }
-    }
-    window.addEventListener('scroll', hendlerScroll);
-    console.log(window.scrollY);
-
+    
     const sidebarIsOpen = () => {
         setsidebarOpen(true);
     }
@@ -98,6 +86,7 @@ function ProductInsert({ productInsertOptionOpen,saveImg }) {
     return (
         <>
             <h1 style={{ marginTop: '30px' }}>상품등록</h1>
+            <div className="sticky">
             <div className="img-category">
                 {sidebarIsOpen &&
                     <div className="priview_sidebar">
@@ -119,7 +108,8 @@ function ProductInsert({ productInsertOptionOpen,saveImg }) {
                     </div>
 
                 </div>
-                <div className={fiexd}>
+            </div>
+            <div className='displaybox'>
                     <div className="title_box">
                         <label className="titleLabel">상품 제목</label>
                         <input className="product_title" name="product_title"
@@ -169,7 +159,7 @@ function ProductInsert({ productInsertOptionOpen,saveImg }) {
                     </div>
 
                 </div>
-            </div>
+                </div>
         </>
     )
 }

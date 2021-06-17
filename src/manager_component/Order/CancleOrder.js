@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import AxiosApiService from '../../AxiosApiService'
 import CancleOrderBox from './component/CancleOrderBox';
 
-function CancleOrder({deliveryStatus}) {
+function CancleOrder({props,deliveryStatus}) {
     //서버에서 받아올 유저 저장소
     const [orders,setOrders] = useState({order:[]});
     const [pageNums,setPageNums] = useState(0);
@@ -19,6 +19,7 @@ function CancleOrder({deliveryStatus}) {
             setOrders({order:res.data});
         })
         .catch(err => {
+            props.history.push('/managerDefaultErr');
             console.log('getUserState() Error!', err);
         })
         //스크롤 맨위로
@@ -31,6 +32,7 @@ function CancleOrder({deliveryStatus}) {
             setPageNums(res.data);
         })
         .catch(err => {
+            props.history.push('/managerDefaultErr');
             console.log('getOrderCount() Error!', err);
         })
     }

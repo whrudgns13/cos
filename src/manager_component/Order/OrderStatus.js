@@ -3,7 +3,7 @@ import AxiosApiService from '../../AxiosApiService'
 import OrderStatusBox from './component/OrderStatusBox'
 
 
-function OrderStatus({ orderDetailOpen }) {
+function OrderStatus({ props,orderDetailOpen }) {
     //서버에서 받아올 유저 저장소
     const [orders, setOrders] = useState({ order: [] });
     const [keyword, setKeyword] = useState('');
@@ -23,7 +23,8 @@ function OrderStatus({ orderDetailOpen }) {
         getProductOrder(0);
         getOrderCount();
     }, [])
-
+    
+    //검색 엔터키 감지
     const onKeyPress = (e) => {
         if (e.key === "Enter") {
             search();
@@ -37,6 +38,7 @@ function OrderStatus({ orderDetailOpen }) {
                 setOrders({ order: res.data });
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getUserState() Error!', err);
             })
         window.scrollTo(0, 0);
@@ -48,6 +50,7 @@ function OrderStatus({ orderDetailOpen }) {
                 setPageNums(res.data)
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getOrderCount() Error!', err);
             })
     }
@@ -62,6 +65,7 @@ function OrderStatus({ orderDetailOpen }) {
                 setPageOpen(false);
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('search() 에러', err);
             });
     }

@@ -6,17 +6,16 @@ import { useHistory } from "react-router-dom";
 import Sidebar from './component/Sidebar';
 import CancelIcon from '@material-ui/icons/Cancel';
 import UpdateComponent from './component/UpdateComponent';
-function ProductUpdate({productDetailOpen,productDelete,saveImg}) {
+function ProductUpdate({props,productListOpen,productDelete,saveImg}) {
 
     const [products, setProducts] = useState([0]);
     const imgUrl = "/imgs/";
     const imageInput = useRef();
     const [productImg, setProductImg] = useState({ img: [0] });
-    const [sidebarOpen, setsidebarOpen] = useState(true);
     const [product_img, setProduct_img] = useState([]);
 
     useEffect(() => {
-        getProductDetail();
+       getProductDetail();
     }, [])
 
     function onTitle(e) {
@@ -88,6 +87,7 @@ function ProductUpdate({productDetailOpen,productDelete,saveImg}) {
                 console.log(products);
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getProductDetail() Error!', err);
             })
     }
@@ -95,11 +95,12 @@ function ProductUpdate({productDetailOpen,productDelete,saveImg}) {
     const productUpdate = () => {
         saveImg(product_img);
         AxiosApiService.productUpdate(products)
-            .then(res => {
-                productDetailOpen();
+            .then(() => {
+                productListOpen();
                 window.localStorage.removeItem('product_seq');
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('Update() Error!', err);
             })
     }
@@ -107,6 +108,7 @@ function ProductUpdate({productDetailOpen,productDelete,saveImg}) {
     const fileClick = () => {
         imageInput.current.click();
     }
+
     //이미지저장
     function onImg(e) {
         let prodimg = productImg;
@@ -160,7 +162,11 @@ function ProductUpdate({productDetailOpen,productDelete,saveImg}) {
     }
     //옵션삭제
     const tableMinus = (index) => {
-        setProducts(products.slice(0, index));
+        if(products.length>1){
+            setProducts(products.slice(0, index));
+        }else{
+            alert('1개 이상 존재해야합니다.');
+        }
     }
     return (
         <>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AxiosApiService from '../../AxiosApiService';
 import ProductListTable from './component/ProductListTable'
 
-function ProductList({ productDetailOpen }) {
+function ProductList({ props,productDetailOpen }) {
     const [products, setProducts] = useState({ product: [0] });
     const [product_title, setProduct_title] = useState('');
     const [pageNums, setPageNums] = useState(0);
@@ -16,7 +16,6 @@ function ProductList({ productDetailOpen }) {
     
     function onChangeSearch(e) {
         setProduct_title(e.currentTarget.value);
-        console.log(product_title);
     }
     const onKeyPress = (e) => {
         if (e.key === "Enter") {
@@ -33,6 +32,7 @@ function ProductList({ productDetailOpen }) {
                 setPageOpen(false);
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('search() 에러', err);
             });
     }
@@ -43,6 +43,7 @@ function ProductList({ productDetailOpen }) {
                 setPageNums(res.data)
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getProductCount() Error!', err);
             })
     }
@@ -69,6 +70,7 @@ function ProductList({ productDetailOpen }) {
                 window.scrollTo(0, 0);
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getProductList() Error!', err);
             })
     }
@@ -77,7 +79,7 @@ function ProductList({ productDetailOpen }) {
         //로컬스토리지 저장
         window.localStorage.setItem("product_seq", seq);
         console.log(seq);
-        productDetailOpen()
+        productDetailOpen();
     }
     
     return (

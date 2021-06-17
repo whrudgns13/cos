@@ -9,29 +9,33 @@
     font-size: 13px;
     min-height: 500px;
 }
+.sticky{
+    width: 100%;
+    display: flex;
+}
 .displaybox_scroll{
     display: flex;
     flex-direction: column;
     width: 22%;
     min-width: 22%;
     margin-left: 3rem;
-    position: fixed;
+    position: sticky;
     height: 100%;
-    top: 10%;
+    bottom: 30%;
     right: 11%;
 } 
 .displaybox{
     display: flex;
     flex-direction: column;
-    width: 30%;
-    margin-left: 3rem;
+    position: sticky;
+    top: 100px;
+    width: 60%;
+    height:45%;
     align-items: flex-start;
-    height: 100%;
-    right: 10%;
 }
 
 .priview_img_box{
-    width: 50%;
+    width: 80%;
     background-color: rgb(243, 241, 241);
     height: 90%;
 }

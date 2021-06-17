@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AxiosApiService from '../../AxiosApiService'
 import Sidebar from '../Product/component/Sidebar'
 import OrderDetailBox from './component/OrderDetailBox'
-function OrderDetail({ orderStatusOpen, deliveryStatus }) {
+function OrderDetail({props,deliveryStatus }) {
     //서버에서 받아올 유저 저장소
     const [orders, setOrders] = useState({ order: [] });
     const [productImg, setProductImg] = useState({ img: [] });
@@ -24,6 +24,7 @@ function OrderDetail({ orderStatusOpen, deliveryStatus }) {
                 setProductImg({ img: res.data.product_img.split(",") });
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getOrderDetail() Error!', err);
             })
     }

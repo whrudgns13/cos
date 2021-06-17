@@ -30,12 +30,12 @@ function ManagerPage(props) {
 
     //상품삭제 productDetail과 productUpdate에 넣어줌
     const productDelete = (product_id) => {
-        console.log(product_id);
         AxiosApiService.productDelete(product_id)
-            .then(res => {
+            .then(() => {
                 productListOpen();
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('productDelete() Error!', err);
             })
     }
@@ -51,15 +51,28 @@ function ManagerPage(props) {
                 'content-type': 'multipart/form-data'
             }
         }
-        AxiosApiService.uploadFile(formData, config);
+        AxiosApiService.uploadFile(formData, config)
+        .then(()=>{
+        
+        })
+        .catch(err => {
+            props.history.push('/managerDefaultErr');
+            console.log('saveImg() Error!', err);
+        })
+        
+    }
+    const eventError = (e)=>{
+        e.preventdefault();
     }
     //배송상태변경
     const deliveryStatus=(status,order_id)=>{
         AxiosApiService.stateChange(status,order_id)
-        .then(res=>{
-            orderStatusOpen();    
+        .then(()=>{
+            orderStatusOpen();
+            window.localStorage.removeItem('order_detail_num');
         })
         .catch(err => {
+            props.history.push('/deliveryStatusError')
             console.log('deliveryStatus() Error!', err);
         })
         
@@ -230,15 +243,15 @@ function ManagerPage(props) {
                     <div className="manager-content">
                         {dashBoard && <ManagerDashboad />}
                         {productInsert && <ProductInsert saveImg={saveImg} productInsertOptionOpen={productInsertOptionOpen} />}
-                        {productInsertOption && <ProductInsertOption />}
+                        {productInsertOption && <ProductInsertOption productListOpen={productListOpen}/>}
                         {productList && <ProductList productDetailOpen={productDetailOpen} />}
                         {productDetail && <ProductDetail productDelete={productDelete} productListOpen={productListOpen} productUpdateOptionOpen={productUpdateOptionOpen} />}
-                        {productUpdate && <ProductUpdate saveImg={saveImg} productDelete={productDelete} productDetailOpen={productDetailOpen} productListOpen={productListOpen} />}
+                        {productUpdate && <ProductUpdate saveImg={saveImg} productDelete={productDelete} productListOpen={productListOpen} />}
                         {cancleOrder && <CancleOrder deliveryStatus={deliveryStatus}/>}
                         {userList && <UserList />}
                         {userStatus && <UserState />}
                         {orderStatus && <OrderStatus orderDetailOpen={orderDetailOpen} />}
-                        {orderDetail && <OrderDetail deliveryStatus={deliveryStatus} orderStatusOpen={orderStatusOpen} />}
+                        {orderDetail && <OrderDetail deliveryStatus={deliveryStatus} />}
                     </div>
                 </div>
             </div>

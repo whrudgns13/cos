@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AxiosApiService from '../../AxiosApiService'
 import UserTableBox from './component/UserTableBox';
 
-function UserList({ openNoResult, openResult }) {
+function UserList(props) {
     //서버에서 받아올 유저 저장소
     const [users, setUsers] = useState({ user: [] });
     const [keyword, setKeyword] = useState('');
@@ -38,6 +38,7 @@ function UserList({ openNoResult, openResult }) {
                 window.scrollTo(0, 0);
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getUserList() Error!', err);
             })
     }
@@ -49,6 +50,7 @@ function UserList({ openNoResult, openResult }) {
             })
            
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getProductCount() Error!', err);
             })
     }
@@ -67,6 +69,7 @@ function UserList({ openNoResult, openResult }) {
                 setPageOpen(false);
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('search() 에러', err);
             });
     }

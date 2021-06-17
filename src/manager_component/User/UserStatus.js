@@ -3,7 +3,7 @@ import AxiosApiService from '../../AxiosApiService'
 import UserTableBox from './component/UserTableBox';
 import UserStatusTableBody from './component/UserStatusTableBody';
 
-function UserStatus() {
+function UserStatus(props) {
     //서버에서 받아올 유저 저장소
     const [users, setUsers] = useState({ user: [] });
     const [keyword, setKeyword] = useState('');
@@ -36,6 +36,7 @@ function UserStatus() {
                 setUsers({ user: res.data });
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getUserState() Error!', err);
             })
     }
@@ -50,6 +51,7 @@ function UserStatus() {
                 setPageOpen(false);
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('search() 에러', err);
             });
     }
@@ -60,6 +62,7 @@ function UserStatus() {
                 setPageNums(res.data)
             })
             .catch(err => {
+                props.history.push('/managerDefaultErr');
                 console.log('getProductCount() Error!', err);
             })
     }
