@@ -133,13 +133,12 @@ function ProductUpdate({productListOpen,productDelete,saveImg}) {
         }
     }
 
-    const ImgDelete = (e, index) => {
-        console.log(index);
+    const ImgDelete = (e,imgs) => {
         //productImg를 복사
         let prodimg = productImg;
-        //img의 0번부터 index값을 읽어 저장
-        prodimg = prodimg.img.slice(0, index);
-        console.log(productImg);
+        //prodimg가 들어온 이름 값인걸 삭제
+        prodimg = prodimg.img.filter(img=> img !== imgs)
+        console.log(prodimg);
         //productImg.img에 할당
         setProductImg({ img: prodimg });
         //배열을 ,를 붙여 문자화
@@ -175,6 +174,9 @@ function ProductUpdate({productListOpen,productDelete,saveImg}) {
     const tableMinus = (seq) => {
         console.log(seq);
         if(products.length>1){
+                console.log(products.product_seq);
+                console.log(products.filter(product => product.product_seq !== seq));
+                console.log(seq);
                 setProducts(products.filter(product => product.product_seq !== seq));
         }else{
             alert('1개 이상 존재해야합니다.');
@@ -190,7 +192,7 @@ function ProductUpdate({productListOpen,productDelete,saveImg}) {
                 <div className="detail_img_box">
                     {productImg.img.map((imgs, index) =>
                         <>
-                            <button className="priview_button" onClick={(e) => ImgDelete(e, index)}><CancelIcon /></button>
+                            <button className="priview_button" onClick={(e) => ImgDelete(e,imgs)}><CancelIcon /></button>
                             <img className="detail_img" src={imgUrl + productImg.img[index]} />
                         </>
                     )}
