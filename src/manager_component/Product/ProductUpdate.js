@@ -164,20 +164,22 @@ function ProductUpdate({productListOpen,productDelete,saveImg}) {
             product_content: products[0].product_content,
             product_img: products[0].product_img,
             product_material: products[0].product_material,
-            product_size: '',
-            product_color: '',
-            product_stock: '',
+            product_size: 'XS',
+            product_color: 'BLACK',
+            product_stock: '0',
         }]
         //AxiosApiService.insertProduct(products);
         setProducts(products.concat(insertproducts))
     }
     //옵션삭제
-    const tableMinus = (index) => {
+    const tableMinus = (seq) => {
+        console.log(seq);
         if(products.length>1){
-            setProducts(products.slice(0, index));
+                setProducts(products.filter(product => product.product_seq !== seq));
         }else{
             alert('1개 이상 존재해야합니다.');
         }
+        
     }
     return (
         <>

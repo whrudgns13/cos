@@ -3,7 +3,7 @@ import AxiosApiService from '../../AxiosApiService';
 import ProductListTable from './component/ProductListTable'
 import { useHistory } from "react-router-dom";
 
-function ProductList({ props,productDetailOpen }) {
+function ProductList({productDetailOpen }) {
     const [products, setProducts] = useState({ product: [0] });
     const [product_title, setProduct_title] = useState('');
     const [pageNums, setPageNums] = useState(0);
